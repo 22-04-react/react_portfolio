@@ -1,10 +1,10 @@
-import React from 'react';
+import Layout from '../common/Layout';
 
 function Join() {
 	return (
-		<div>
-			<h1>Join</h1>
-		</div>
+		<Layout>
+			<p>조인 컨텐츠가 들어올자리</p>
+		</Layout>
 	);
 }
 
