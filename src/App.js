@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 //common
 import Header from './components/common/Header';
@@ -21,12 +21,17 @@ import './scss/style.scss';
 function App() {
 	return (
 		<>
-			<Header />
+			<Switch>
+				<Route exact path='/'>
+					<Header type={'main'} />
+					<Visual />
+					<Content />
+				</Route>
 
-			<Route exact path='/'>
-				<Visual />
-				<Content />
-			</Route>
+				<Route path='/'>
+					<Header type={'sub'} />
+				</Route>
+			</Switch>
 
 			<Route path='/department' component={Department} />
 			<Route path='/community' component={Community} />
@@ -41,3 +46,8 @@ function App() {
 }
 
 export default App;
+
+/*
+	Switch
+	라우터 연결시 중복되는 url이 있을때 더 구체적인 라우터 하나만 적용
+*/
