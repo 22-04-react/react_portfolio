@@ -1,31 +1,34 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
 	return (
 		<header>
 			<div className='inner'>
 				<h1>
-					<a href='#'>LOGO</a>
+					<NavLink exact to='/'>
+						LOGO
+					</NavLink>
 				</h1>
 
 				<ul id='gnb'>
 					<li>
-						<a href='#'>Department</a>
+						<NavLink to='/department'>Department</NavLink>
 					</li>
 					<li>
-						<a href='#'>Community</a>
+						<NavLink to='/community'>Community</NavLink>
 					</li>
 					<li>
-						<a href='#'>Gallery</a>
+						<NavLink to='/gallery'>Gallery</NavLink>
 					</li>
 					<li>
-						<a href='#'>Youtube</a>
+						<NavLink to='/youtube'>Youtube</NavLink>
 					</li>
 					<li>
-						<a href='#'>Location</a>
+						<NavLink to='/location'>Location</NavLink>
 					</li>
 					<li>
-						<a href='#'>Membership</a>
+						<NavLink to='/join'>Join</NavLink>
 					</li>
 				</ul>
 			</div>
