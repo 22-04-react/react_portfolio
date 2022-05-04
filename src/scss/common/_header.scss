@@ -35,6 +35,15 @@ header {
 				}
 			}
 		}
+
+		.menuMo {
+			position: absolute;
+			right: 30px;
+			bottom: 20px;
+			font-size: 24px;
+			color: #fff;
+			display: none;
+		}
 	}
 
 	&.main {
@@ -44,4 +53,28 @@ header {
 		left: 0px;
 		z-index: 2;
 	}
+}
+
+//tablet
+@media screen and (max-width: $tablet) {
+	header {
+		.inner {
+			width: 100%;
+
+			h1 {
+				left: 30px;
+			}
+
+			#gnb {
+				display: none;
+			}
+			.menuMo {
+				display: block;
+			}
+		}
+	}
+}
+
+//m.p
+@media screen and (max-width: $mp) {
 }
