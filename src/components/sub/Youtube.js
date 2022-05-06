@@ -21,6 +21,11 @@ function Youtube() {
 		});
 	}, []);
 
+	const handleClick = (index) => {
+		setOpen(true);
+		setIndex(index);
+	};
+
 	return (
 		<>
 			<Layout name={'Youtube'}>
@@ -29,13 +34,7 @@ function Youtube() {
 					const desc = vid.snippet.description;
 					const date = vid.snippet.publishedAt;
 					return (
-						<article
-							key={idx}
-							//article클릭시 클릭한 요소의 순서값인 idx값을 setIndex를 이용하여 index state값 변경
-							onClick={() => {
-								setOpen(true);
-								setIndex(idx);
-							}}>
+						<article key={idx} onClick={() => handleClick(idx)}>
 							<div className='pic'>
 								<img src={vid.snippet.thumbnails.standard.url} />
 							</div>
@@ -50,7 +49,6 @@ function Youtube() {
 			{open ? (
 				<Popup setOpen={setOpen}>
 					<iframe
-						//팝업이 호출될때 변경된 index순번의 vids state값의 데이터값이 팝업영상으로 출력
 						src={`https://www.youtube.com/embed/${vids[index].snippet.resourceId.videoId}`}
 						frameBorder='0'></iframe>
 				</Popup>
@@ -60,3 +58,8 @@ function Youtube() {
 }
 
 export default Youtube;
+
+/*
+	e.target은 이벤트구문에서의 연결된 선택자가 아닌 실제 화면상에서 이벤트가 발생한 대상을 지칭
+	e.currentTarget은 이벤트 구문에서의 연결된 선택자를 지칭
+*/
