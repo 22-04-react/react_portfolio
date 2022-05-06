@@ -20,7 +20,11 @@ function Department() {
 				{members.map((member, idx) => {
 					return (
 						<li key={idx}>
-							<h2>{member.name}</h2>
+							<div className='inner'>
+								<img src={`${path}/img/${member.pic}`} />
+								<h2>{member.name}</h2>
+								<p>{member.position}</p>
+							</div>
 						</li>
 					);
 				})}
