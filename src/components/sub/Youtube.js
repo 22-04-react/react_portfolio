@@ -1,9 +1,12 @@
 import Layout from '../common/Layout';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Popup from '../common/Popup';
 
 function Youtube() {
 	const [vids, setVids] = useState([]);
+	let [open, setOpen] = useState(false);
+
 	useEffect(() => {
 		const key = 'AIzaSyBZFBuapkASPcRBXB2-d_ak5-ecCpVicI4';
 		const playlistId = 'PLHtvRFLN5v-UVVpNfWqtgZ6YPs9ZJMWRK';
@@ -17,24 +20,27 @@ function Youtube() {
 	}, []);
 
 	return (
-		<Layout name={'Youtube'}>
-			{vids.map((vid, idx) => {
-				const tit = vid.snippet.title;
-				const desc = vid.snippet.description;
-				const date = vid.snippet.publishedAt;
+		<>
+			<Layout name={'Youtube'}>
+				{vids.map((vid, idx) => {
+					const tit = vid.snippet.title;
+					const desc = vid.snippet.description;
+					const date = vid.snippet.publishedAt;
+					return (
+						<article key={idx} onClick={() => setOpen(true)}>
+							<div className='pic'>
+								<img src={vid.snippet.thumbnails.standard.url} />
+							</div>
+							<h2>{tit.length > 50 ? tit.substr(0, 50) + '...' : tit}</h2>
+							<p>{desc.length > 150 ? desc.substr(0, 150) + '...' : desc}</p>
+							<span>{date.split('T')[0]}</span>
+						</article>
+					);
+				})}
+			</Layout>
 
-				return (
-					<article key={idx}>
-						<div className='pic'>
-							<img src={vid.snippet.thumbnails.standard.url} />
-						</div>
-						<h2>{tit.length > 50 ? tit.substr(0, 50) + '...' : tit}</h2>
-						<p>{desc.length > 150 ? desc.substr(0, 150) + '...' : desc}</p>
-						<span>{date.split('T')[0]}</span>
-					</article>
-				);
-			})}
-		</Layout>
+			{open ? <Popup></Popup> : null}
+		</>
 	);
 }
 
