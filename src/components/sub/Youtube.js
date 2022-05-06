@@ -6,7 +6,6 @@ import Popup from '../common/Popup';
 function Youtube() {
 	const [vids, setVids] = useState([]);
 	const [open, setOpen] = useState(false);
-	//리스트의 순서를 다룰 state추가
 	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
@@ -33,6 +32,7 @@ function Youtube() {
 					const tit = vid.snippet.title;
 					const desc = vid.snippet.description;
 					const date = vid.snippet.publishedAt;
+
 					return (
 						<article key={idx} onClick={() => handleClick(idx)}>
 							<div className='pic'>
