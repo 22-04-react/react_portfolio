@@ -5,7 +5,8 @@ import Popup from '../common/Popup';
 
 function Youtube() {
 	const [vids, setVids] = useState([]);
-	let [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
+	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
 		const key = 'AIzaSyBZFBuapkASPcRBXB2-d_ak5-ecCpVicI4';
@@ -39,7 +40,13 @@ function Youtube() {
 				})}
 			</Layout>
 
-			{open ? <Popup></Popup> : null}
+			{open ? (
+				<Popup setOpen={setOpen}>
+					<iframe
+						src={`https://www.youtube.com/embed/${vids[index].snippet.resourceId.videoId}`}
+						frameBorder='0'></iframe>
+				</Popup>
+			) : null}
 		</>
 	);
 }
