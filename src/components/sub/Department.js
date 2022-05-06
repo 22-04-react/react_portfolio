@@ -15,7 +15,8 @@ function Department() {
 	}, []);
 
 	return (
-		<Layout name={'Department'}>
+		// public폴더까지의 절대 경로값으로 이미지 url을 prop으로 전달
+		<Layout name={'Department'} bg={`${path}/img/member1.jpg`}>
 			<button
 				onClick={() => {
 					const newMembers = [...members];
