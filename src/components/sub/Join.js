@@ -10,14 +10,13 @@ function Join() {
 	const [val, setVal] = useState(initVal);
 	const [err, setErr] = useState({});
 
-	//순서4- 인수로 전달된 값으로 인증체크시작
 	const check = (val) => {
 		const errs = {};
-
-		//순서5- 현재 val값의 userid값이 인증통과 안되면
-		//에러객체에 에러문구 담아서 반환
 		if (val.userid.length < 5) {
 			errs.userid = '아이디를 5글자 이상 입력하세요';
+		}
+		if (val.email.length < 8 || !/@/.test(val.email)) {
+			errs.email = '이메일은 8글자 이상 @를 포함해 입력하세요';
 		}
 		return errs;
 	};
@@ -27,12 +26,9 @@ function Join() {
 		setVal({ ...val, [name]: value });
 	};
 
-	//순서2 - 해당함수가 호출되면
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		//순서3- 현재의 value값을 check함수의 인수로 전달
 		setErr(check(val));
-		//순서6 - check함수를 통해서 반환된 err객체를 setErr로 err스테이트에 옮겨담음
 	};
 
 	useEffect(() => {
@@ -41,7 +37,6 @@ function Join() {
 
 	return (
 		<Layout name={'Join'}>
-			{/* 순서1- 전송버튼 눌러서 submit이벤트 발생시 handleSubmit호출 */}
 			<form onSubmit={handleSubmit}>
 				<fieldset>
 					<legend>회원가입 폼 양식</legend>
