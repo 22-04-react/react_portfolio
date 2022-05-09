@@ -4,7 +4,6 @@ const path = process.env.PUBLIC_URL;
 
 function Layout(props) {
 	const frame = useRef(null);
-	console.log(props.bg);
 
 	useEffect(() => {
 		frame.current.classList.remove('on');
@@ -15,7 +14,6 @@ function Layout(props) {
 		<section className={`content ${props.name}`} ref={frame}>
 			{/* prop으로 전달받은 bg 주소를 style객체에 담아서 인라인으로 배경처리 */}
 			<figure style={{ backgroundImage: `url(${props.bg})` }}></figure>
-			<figure></figure>
 			<div className='inner'>
 				<h1>{props.name}</h1>
 				{props.children}
