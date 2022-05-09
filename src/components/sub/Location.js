@@ -14,8 +14,8 @@ function Locaition() {
 	const [traffic, setTraffic] = useState(false);
 
 	useEffect(() => {
-		const map = new kakao.maps.Map(container.current, options);
-		setMap(map);
+		const map_instance = new kakao.maps.Map(container.current, options);
+		setMap(map_instance);
 	}, []);
 
 	useEffect(() => {
@@ -26,6 +26,7 @@ function Locaition() {
 				? map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
 				: map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 		}
+		console.log(map);
 	}, [traffic]);
 
 	return (
