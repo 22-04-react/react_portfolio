@@ -11,27 +11,31 @@ function Locaition() {
 	};
 
 	const [map, setMap] = useState(null);
+	const [traffic, setTraffic] = useState(false);
 
 	useEffect(() => {
 		const map = new kakao.maps.Map(container.current, options);
 		setMap(map);
 	}, []);
 
+	useEffect(() => {
+		// 처음 mount시 map값이 비어있어서 오류나는걸 해결하기 위해
+		// map값이 담겨있을때에만 구문실행되도록 조건문 설정
+		if (map) {
+			traffic
+				? map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
+				: map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+		}
+	}, [traffic]);
+
 	return (
 		<Layout name={'Location'}>
 			<div id='map' ref={container}></div>
-			<button
-				onClick={() => {
-					map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
-				}}>
-				Traffic ON
-			</button>
 
-			<button
-				onClick={() => {
-					map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
-				}}>
-				Traffic OFF
+			{/* 버튼 클릭할때마다 traffic값을 계속 토글하면서 변경 */}
+			<button onClick={() => setTraffic(!traffic)}>
+				{/* traffic값에 따라서 버튼 글자 변경 */}
+				{traffic ? 'Traffic OFF' : 'Traffic ON'}
 			</button>
 		</Layout>
 	);
