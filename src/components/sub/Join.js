@@ -4,6 +4,7 @@ import { useState } from 'react';
 function Join() {
 	const initVal = {
 		userid: '',
+		email: '',
 	};
 
 	const [val, setVal] = useState(initVal);
@@ -25,6 +26,7 @@ function Join() {
 					<table border='1'>
 						<caption>회원가입 정보입력</caption>
 						<tbody>
+							{/* user id */}
 							<tr>
 								<th scope='row'>
 									<label htmlFor='userid'>USER ID</label>
@@ -42,6 +44,24 @@ function Join() {
 									/>
 								</td>
 							</tr>
+							{/* email */}
+							<tr>
+								<th scope='row'>
+									<label htmlFor='email'>E-MAIL</label>
+								</th>
+								<td>
+									<input
+										type='text'
+										id='email'
+										name='email'
+										placeholder='이메일주소를 입력하세요'
+										value={val.email}
+										onChange={handleChange}
+									/>
+								</td>
+							</tr>
+
+							{/* button set */}
 							<tr>
 								<th colSpan='2'>
 									<input type='reset' value='CANCEL' />
