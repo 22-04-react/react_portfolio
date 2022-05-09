@@ -104,6 +104,10 @@ function Join() {
 		}
 	}, [err]);
 
+	useEffect(() => {
+		handleReset();
+	}, [success]);
+
 	return (
 		<Layout name={'Join'}>
 			{success ? <h2>회원가입을 축하합니다.</h2> : null}
