@@ -7,6 +7,8 @@
 
 	.branch {
 		li {
+			cursor: pointer;
+
 			&.on {
 				color: red;
 			}

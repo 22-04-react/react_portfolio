@@ -66,6 +66,14 @@ function Locaition() {
 		const branch_li = branch.current.querySelectorAll('li');
 		for (const btn of branch_li) btn.classList.remove('on');
 		branch_li[index].classList.add('on');
+
+		const mapInit = () => {
+			console.log('마커 중앙 유지');
+			map_instance.setCenter(mapInfo[index].latlng);
+		};
+
+		//브라우저 리사이즈시 mapInit호출
+		window.addEventListener('resize', mapInit);
 	}, [index]);
 
 	useEffect(() => {
