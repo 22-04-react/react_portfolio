@@ -6,6 +6,7 @@ const path = process.env.PUBLIC_URL;
 function Locaition() {
 	const { kakao } = window;
 	const container = useRef(null);
+	const branch = useRef(null);
 	const info = [
 		{
 			title: '삼성동 코엑스',
@@ -60,7 +61,12 @@ function Locaition() {
 		});
 
 		marker.setMap(map_instance);
-	}, [index]); //index값이 바뀔때마다 해당 useEffect문이 재실행되면서 지도화면 갱신
+
+		//버튼 활성화
+		const branch_li = branch.current.querySelectorAll('li');
+		for (const btn of branch_li) btn.classList.remove('on');
+		branch_li[index].classList.add('on');
+	}, [index]);
 
 	useEffect(() => {
 		if (map) {
@@ -79,7 +85,7 @@ function Locaition() {
 				{traffic ? 'Traffic OFF' : 'Traffic ON'}
 			</button>
 
-			<ul>
+			<ul className='branch' ref={branch}>
 				{mapInfo.map((item, idx) => {
 					return (
 						<li key={idx} onClick={() => setIndex(idx)}>
