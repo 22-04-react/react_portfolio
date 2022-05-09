@@ -9,6 +9,7 @@ function Join() {
 		pwd2: '',
 		comments: '',
 		gender: null,
+		interests: null,
 	};
 
 	const [val, setVal] = useState(initVal);
@@ -41,6 +42,9 @@ function Join() {
 		if (!val.gender) {
 			errs.gender = '성별을 선택하세요';
 		}
+		if (!val.interests) {
+			errs.interests = '관심사를 하나이상 선택하세요';
+		}
 		if (val.comments.length < 10) {
 			errs.comments = '남기는 말은 10글자 이상 입력하세요';
 		}
@@ -55,6 +59,19 @@ function Join() {
 	const handleRadio = (e) => {
 		const { name } = e.target;
 		const isCheck = e.target.checked;
+		setVal({ ...val, [name]: isCheck });
+	};
+
+	const handleCheck = (e) => {
+		let isCheck = false;
+
+		const { name } = e.target;
+		const inputs = e.target.parentElement.querySelectorAll('input');
+
+		inputs.forEach((el) => {
+			if (el.checked) isCheck = true;
+		});
+
 		setVal({ ...val, [name]: isCheck });
 	};
 
@@ -172,6 +189,37 @@ function Join() {
 										onChange={handleRadio}
 									/>
 									<span className='err'>{err.gender}</span>
+								</td>
+							</tr>
+
+							{/* interests */}
+							<tr>
+								<th scope='row'>INTERESTS</th>
+								<td>
+									<label htmlFor='sports'>Sports</label>
+									<input
+										type='checkbox'
+										name='interests'
+										id='sports'
+										onChange={handleCheck}
+									/>
+
+									<label htmlFor='game'>Game</label>
+									<input
+										type='checkbox'
+										name='interests'
+										id='game'
+										onChange={handleCheck}
+									/>
+
+									<label htmlFor='music'>Music</label>
+									<input
+										type='checkbox'
+										name='interests'
+										id='music'
+										onChange={handleCheck}
+									/>
+									<span className='err'>{err.interests}</span>
 								</td>
 							</tr>
 
