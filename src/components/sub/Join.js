@@ -7,6 +7,8 @@ function Join() {
 		email: '',
 		pwd1: '',
 		pwd2: '',
+		comments: '',
+		gender: null,
 	};
 
 	const [val, setVal] = useState(initVal);
@@ -36,12 +38,24 @@ function Join() {
 		if (val.pwd1 !== val.pwd2 || !val.pwd2) {
 			errs.pwd2 = '비밀번호 2개를 동일하게 입력하세요';
 		}
+		if (!val.gender) {
+			errs.gender = '성별을 선택하세요';
+		}
+		if (val.comments.length < 10) {
+			errs.comments = '남기는 말은 10글자 이상 입력하세요';
+		}
 		return errs;
 	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setVal({ ...val, [name]: value });
+	};
+
+	const handleRadio = (e) => {
+		const { name } = e.target;
+		const isCheck = e.target.checked;
+		setVal({ ...val, [name]: isCheck });
 	};
 
 	const handleReset = () => {
@@ -135,6 +149,46 @@ function Join() {
 										onChange={handleChange}
 									/>
 									<span className='err'>{err.email}</span>
+								</td>
+							</tr>
+
+							{/* gender */}
+							<tr>
+								<th scope='row'>GENDER</th>
+								<td>
+									<label htmlFor='male'>Male</label>
+									<input
+										type='radio'
+										id='male'
+										name='gender'
+										onChange={handleRadio}
+									/>
+
+									<label htmlFor='female'>Female</label>
+									<input
+										type='radio'
+										id='female'
+										name='gender'
+										onChange={handleRadio}
+									/>
+									<span className='err'>{err.gender}</span>
+								</td>
+							</tr>
+
+							{/* comments */}
+							<tr>
+								<th scope='row'>
+									<label htmlFor='comments'>COMMENTS</label>
+								</th>
+								<td>
+									<textarea
+										name='comments'
+										id='comments'
+										cols='30'
+										rows='10'
+										value={val.comments}
+										onChange={handleChange}></textarea>
+									<span className='err'>{err.commetns}</span>
 								</td>
 							</tr>
 
