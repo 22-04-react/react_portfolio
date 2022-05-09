@@ -74,6 +74,11 @@ function Locaition() {
 
 		//브라우저 리사이즈시 mapInit호출
 		window.addEventListener('resize', mapInit);
+
+		//해당 컴포넌트 소멸시 window전역에 등록했던 핸들러 함수를 제거
+		return () => {
+			window.removeEventListener('resize', mapInit);
+		};
 	}, [index]);
 
 	useEffect(() => {
