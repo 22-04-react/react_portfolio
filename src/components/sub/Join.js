@@ -1,5 +1,5 @@
 import Layout from '../common/Layout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Join() {
 	const initVal = {
@@ -8,19 +8,41 @@ function Join() {
 	};
 
 	const [val, setVal] = useState(initVal);
+	const [err, setErr] = useState({});
+
+	//순서4- 인수로 전달된 값으로 인증체크시작
+	const check = (val) => {
+		const errs = {};
+
+		//순서5- 현재 val값의 userid값이 인증통과 안되면
+		//에러객체에 에러문구 담아서 반환
+		if (val.userid.length < 5) {
+			errs.userid = '아이디를 5글자 이상 입력하세요';
+		}
+		return errs;
+	};
 
 	const handleChange = (e) => {
-		//순서2 - 입력하고 있는 input요소의 name, value값을 변수로 비구조할당
 		const { name, value } = e.target;
-
-		//setVal({ ...val, userid: value });
-		//순서3 - 기존 val값을 복사해서 방급 입력받은 value값으로 덮어쓰기
 		setVal({ ...val, [name]: value });
 	};
 
+	//순서2 - 해당함수가 호출되면
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		//순서3- 현재의 value값을 check함수의 인수로 전달
+		setErr(check(val));
+		//순서6 - check함수를 통해서 반환된 err객체를 setErr로 err스테이트에 옮겨담음
+	};
+
+	useEffect(() => {
+		console.log(err);
+	}, [err]);
+
 	return (
 		<Layout name={'Join'}>
-			<form>
+			{/* 순서1- 전송버튼 눌러서 submit이벤트 발생시 handleSubmit호출 */}
+			<form onSubmit={handleSubmit}>
 				<fieldset>
 					<legend>회원가입 폼 양식</legend>
 					<table border='1'>
@@ -37,13 +59,12 @@ function Join() {
 										id='userid'
 										name='userid'
 										placeholder='아이디를 입력하세요'
-										//val스테이트의 userid값이 인풋요소에 출력
 										value={val.userid}
-										//순서1- 인풋에 값을 입력하면 handleChange함수 호출
 										onChange={handleChange}
 									/>
 								</td>
 							</tr>
+
 							{/* email */}
 							<tr>
 								<th scope='row'>
