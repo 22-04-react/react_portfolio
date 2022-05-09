@@ -60,7 +60,7 @@ function Locaition() {
 		});
 
 		marker.setMap(map_instance);
-	}, [index]);
+	}, [index]); //index값이 바뀔때마다 해당 useEffect문이 재실행되면서 지도화면 갱신
 
 	useEffect(() => {
 		if (map) {
@@ -80,9 +80,13 @@ function Locaition() {
 			</button>
 
 			<ul>
-				<li onClick={() => setIndex(0)}>삼성동 코엑스</li>
-				<li onClick={() => setIndex(1)}>광화문 정문</li>
-				<li onClick={() => setIndex(2)}>남산 타워</li>
+				{mapInfo.map((item, idx) => {
+					return (
+						<li key={idx} onClick={() => setIndex(idx)}>
+							{item.title}
+						</li>
+					);
+				})}
 			</ul>
 		</Layout>
 	);
