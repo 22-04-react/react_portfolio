@@ -37,6 +37,9 @@ function Locaition() {
 	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
+		//컴포넌트가 재랜더링 될떄마다 기존 map안쪽의 내용을 비워줌
+		container.current.innerHTML = '';
+
 		const options = {
 			center: mapInfo[index].latlng,
 			level: 3,
@@ -68,7 +71,6 @@ function Locaition() {
 		branch_li[index].classList.add('on');
 
 		const mapInit = () => {
-			console.log('마커 중앙 유지');
 			map_instance.setCenter(mapInfo[index].latlng);
 		};
 
@@ -87,7 +89,6 @@ function Locaition() {
 				? map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
 				: map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
 		}
-		console.log(map);
 	}, [traffic]);
 
 	return (
