@@ -16,14 +16,14 @@ function Locaition() {
 		},
 		{
 			title: '광화문 정문',
-			latlng: new kakao.maps.LatLng(33.450701, 126.570667),
+			latlng: new kakao.maps.LatLng(37.57610410883431, 126.97682701566524),
 			imgSrc: `${path}/img/marker2.png`,
 			imgSize: new kakao.maps.Size(232, 99),
 			imgPos: { offset: new kakao.maps.Point(116, 99) },
 		},
 		{
 			title: '남산 타워',
-			latlng: new kakao.maps.LatLng(33.450701, 126.570667),
+			latlng: new kakao.maps.LatLng(37.55145453146031, 126.98818533168571),
 			imgSrc: `${path}/img/marker3.png`,
 			imgSize: new kakao.maps.Size(232, 99),
 			imgPos: { offset: new kakao.maps.Point(116, 99) },
@@ -31,39 +31,36 @@ function Locaition() {
 	];
 
 	const [map, setMap] = useState(null);
-	const [mapInfo, setMapInfo] = useState(info);
+	const [mapInfo] = useState(info);
 	const [traffic, setTraffic] = useState(false);
+	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
 		const options = {
-			center: mapInfo[0].latlng,
+			center: mapInfo[index].latlng,
 			level: 3,
 		};
 		const map_instance = new kakao.maps.Map(container.current, options);
 		setMap(map_instance);
 
-		//마커 위치 인스턴스 생성
-		const markerPosition = mapInfo[0].latlng;
+		const markerPosition = mapInfo[index].latlng;
 
-		//마커 이미지 인스턴스 생성
-		const imageSrc = mapInfo[0].imgSrc;
-		const imageSize = mapInfo[0].imgSize;
-		const imageOption = mapInfo[0].imgPos;
+		const imageSrc = mapInfo[index].imgSrc;
+		const imageSize = mapInfo[index].imgSize;
+		const imageOption = mapInfo[index].imgPos;
 		const markerImage = new kakao.maps.MarkerImage(
 			imageSrc,
 			imageSize,
 			imageOption
 		);
 
-		//마커 위치 인스턴스를 인수로 넣어서 마커 인스턴스 생성
 		const marker = new kakao.maps.Marker({
 			position: markerPosition,
 			image: markerImage,
 		});
 
-		// 생성된 마커 인스턴스에 기존 map인스턴스를 연결해서 최종 마커 생성
 		marker.setMap(map_instance);
-	}, []);
+	}, [index]);
 
 	useEffect(() => {
 		if (map) {
@@ -78,11 +75,15 @@ function Locaition() {
 		<Layout name={'Location'}>
 			<div id='map' ref={container}></div>
 
-			{/* 버튼 클릭할때마다 traffic값을 계속 토글하면서 변경 */}
 			<button onClick={() => setTraffic(!traffic)}>
-				{/* traffic값에 따라서 버튼 글자 변경 */}
 				{traffic ? 'Traffic OFF' : 'Traffic ON'}
 			</button>
+
+			<ul>
+				<li onClick={() => setIndex(0)}>삼성동 코엑스</li>
+				<li onClick={() => setIndex(1)}>광화문 정문</li>
+				<li onClick={() => setIndex(2)}>남산 타워</li>
+			</ul>
 		</Layout>
 	);
 }
