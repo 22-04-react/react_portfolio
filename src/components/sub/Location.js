@@ -4,28 +4,51 @@ import { useRef, useEffect, useState } from 'react';
 const path = process.env.PUBLIC_URL;
 
 function Locaition() {
-	//window전역에서 kakao라는 이름으로 등록되어 있는 객체를 비구조할당으로 직접 변수에 할당
 	const { kakao } = window;
 	const container = useRef(null);
-	const options = {
-		center: new kakao.maps.LatLng(33.450701, 126.570667),
-		level: 3,
-	};
+	const info = [
+		{
+			title: '삼성동 코엑스',
+			latlng: new kakao.maps.LatLng(37.51270548662555, 127.06069417327436),
+			imgSrc: `${path}/img/marker1.png`,
+			imgSize: new kakao.maps.Size(232, 99),
+			imgPos: { offset: new kakao.maps.Point(116, 99) },
+		},
+		{
+			title: '광화문 정문',
+			latlng: new kakao.maps.LatLng(33.450701, 126.570667),
+			imgSrc: `${path}/img/marker2.png`,
+			imgSize: new kakao.maps.Size(232, 99),
+			imgPos: { offset: new kakao.maps.Point(116, 99) },
+		},
+		{
+			title: '남산 타워',
+			latlng: new kakao.maps.LatLng(33.450701, 126.570667),
+			imgSrc: `${path}/img/marker3.png`,
+			imgSize: new kakao.maps.Size(232, 99),
+			imgPos: { offset: new kakao.maps.Point(116, 99) },
+		},
+	];
 
 	const [map, setMap] = useState(null);
+	const [mapInfo, setMapInfo] = useState(info);
 	const [traffic, setTraffic] = useState(false);
 
 	useEffect(() => {
+		const options = {
+			center: mapInfo[0].latlng,
+			level: 3,
+		};
 		const map_instance = new kakao.maps.Map(container.current, options);
 		setMap(map_instance);
 
 		//마커 위치 인스턴스 생성
-		const markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+		const markerPosition = mapInfo[0].latlng;
 
 		//마커 이미지 인스턴스 생성
-		const imageSrc = `${path}/img/marker1.png`;
-		const imageSize = new kakao.maps.Size(232, 99);
-		const imageOption = { offset: new kakao.maps.Point(116, 99) };
+		const imageSrc = mapInfo[0].imgSrc;
+		const imageSize = mapInfo[0].imgSize;
+		const imageOption = mapInfo[0].imgPos;
 		const markerImage = new kakao.maps.MarkerImage(
 			imageSrc,
 			imageSize,
