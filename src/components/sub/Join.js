@@ -44,6 +44,11 @@ function Join() {
 		setVal({ ...val, [name]: value });
 	};
 
+	const handleReset = () => {
+		setVal(initVal);
+		setErr({});
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setErr(check(val));
@@ -75,6 +80,7 @@ function Join() {
 										value={val.userid}
 										onChange={handleChange}
 									/>
+									<span className='err'>{err.userid}</span>
 								</td>
 							</tr>
 
@@ -92,6 +98,7 @@ function Join() {
 										value={val.pwd1}
 										onChange={handleChange}
 									/>
+									<span className='err'>{err.pwd1}</span>
 								</td>
 							</tr>
 
@@ -109,6 +116,7 @@ function Join() {
 										value={val.pwd2}
 										onChange={handleChange}
 									/>
+									<span className='err'>{err.pwd2}</span>
 								</td>
 							</tr>
 
@@ -126,13 +134,14 @@ function Join() {
 										value={val.email}
 										onChange={handleChange}
 									/>
+									<span className='err'>{err.email}</span>
 								</td>
 							</tr>
 
 							{/* button set */}
 							<tr>
 								<th colSpan='2'>
-									<input type='reset' value='CANCEL' />
+									<input type='reset' value='CANCEL' onClick={handleReset} />
 									<input type='submit' value='SEND' />
 								</th>
 							</tr>
