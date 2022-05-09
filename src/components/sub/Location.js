@@ -70,6 +70,17 @@ function Locaition() {
 		for (const btn of branch_li) btn.classList.remove('on');
 		branch_li[index].classList.add('on');
 
+		//지도에 타입 컨트롤러 추가
+		const mapTypeControl = new kakao.maps.MapTypeControl();
+		map_instance.addControl(
+			mapTypeControl,
+			kakao.maps.ControlPosition.TOPRIGHT
+		);
+
+		//지도에 zoom 컨트롤 추가
+		const zoomControl = new kakao.maps.ZoomControl();
+		map_instance.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
 		const mapInit = () => {
 			map_instance.setCenter(mapInfo[index].latlng);
 		};
