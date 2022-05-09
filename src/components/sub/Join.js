@@ -1,7 +1,10 @@
 import Layout from '../common/Layout';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Join() {
+	const history = useHistory();
+
 	const initVal = {
 		userid: '',
 		email: '',
@@ -15,7 +18,6 @@ function Join() {
 
 	const [val, setVal] = useState(initVal);
 	const [err, setErr] = useState({});
-	const [success, setSuccess] = useState(false);
 	const [isSubmit, setIsSubmit] = useState(false);
 
 	const check = (val) => {
@@ -100,17 +102,13 @@ function Join() {
 	useEffect(() => {
 		const len = Object.keys(err).length;
 		if (len === 0 && isSubmit) {
-			setSuccess(true);
+			//모든 인증이 성공하면 메인 페이지로 강제 이동
+			history.push('/');
 		}
 	}, [err]);
 
-	useEffect(() => {
-		handleReset();
-	}, [success]);
-
 	return (
 		<Layout name={'Join'}>
-			{success ? <h2>회원가입을 축하합니다.</h2> : null}
 			<form onSubmit={handleSubmit}>
 				<fieldset>
 					<legend>회원가입 폼 양식</legend>
