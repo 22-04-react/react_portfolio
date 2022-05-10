@@ -12,6 +12,19 @@ function Community() {
 
 	const [posts, setPosts] = useState(dummyPosts);
 
+	const createPost = () => {
+		setPosts([
+			{ title: input.current.value, content: textarea.current.value },
+			...posts,
+		]);
+		resetPost();
+	};
+
+	const resetPost = () => {
+		input.current.value = '';
+		textarea.current.value = '';
+	};
+
 	return (
 		<Layout name={'Community'}>
 			<div className='inputBox'>
@@ -24,8 +37,8 @@ function Community() {
 					placeholder='본문을 입력하세요'></textarea>
 				<br />
 
-				<button>cancel</button>
-				<button>create</button>
+				<button onClick={resetPost}>cancel</button>
+				<button onClick={createPost}>create</button>
 			</div>
 
 			<div className='showBox'>
