@@ -18,6 +18,11 @@ function Community() {
 	const [posts, setPosts] = useState(dummyPosts);
 
 	const createPost = () => {
+		if (!input.current.value.trim() || !textarea.current.value.trim()) {
+			alert('제목과 본문을 입력하세요.');
+			return;
+		}
+
 		setPosts([
 			{ title: input.current.value, content: textarea.current.value },
 			...posts,
@@ -52,8 +57,12 @@ function Community() {
 		);
 	};
 
-	//post수정 함수
 	const updatePost = (index) => {
+		if (!editInput.current.value.trim() || !editTextarea.current.value.trim()) {
+			alert('수정할 제목과 본문을 입력하세요.');
+			return;
+		}
+
 		setPosts(
 			posts.map((post, idx) => {
 				if (idx === index) {
@@ -107,7 +116,6 @@ function Community() {
 
 									<div className='btns'>
 										<button onClick={() => disableUpdate(idx)}>cancel</button>
-										{/* 수정모드에서 저장버튼 클릭시 수정함수 호출 */}
 										<button onClick={() => updatePost(idx)}>save</button>
 									</div>
 								</>
