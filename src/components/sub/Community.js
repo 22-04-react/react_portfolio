@@ -16,6 +16,8 @@ function Community() {
 	];
 
 	const [posts, setPosts] = useState(dummyPosts);
+	//중복 수정을 막을 state추가
+	const [allowed, setAllowed] = useState(true);
 
 	const createPost = () => {
 		if (!input.current.value.trim() || !textarea.current.value.trim()) {
@@ -40,6 +42,8 @@ function Community() {
 	};
 
 	const enableUpdate = (index) => {
+		//수정모드 진입시 수정버튼 클릭 방지
+		setAllowed(false);
 		setPosts(
 			posts.map((post, idx) => {
 				if (idx === index) post.enableUpdate = true;
@@ -49,6 +53,8 @@ function Community() {
 	};
 
 	const disableUpdate = (index) => {
+		//출력모드 진입시 수정버튼 클릭 가능
+		setAllowed(true);
 		setPosts(
 			posts.map((post, idx) => {
 				if (idx === index) post.enableUpdate = false;
@@ -62,6 +68,9 @@ function Community() {
 			alert('수정할 제목과 본문을 입력하세요.');
 			return;
 		}
+
+		//수정완료시 다시 allowed true로 변경
+		setAllowed(true);
 
 		setPosts(
 			posts.map((post, idx) => {
@@ -126,7 +135,13 @@ function Community() {
 									<p>{post.content}</p>
 
 									<div className='btns'>
-										<button onClick={() => enableUpdate(idx)}>edit</button>
+										<button
+											onClick={() => {
+												//allowed가 true일때만 수정모드 변경가능
+												if (allowed) enableUpdate(idx);
+											}}>
+											edit
+										</button>
 										<button onClick={() => deletePost(idx)}>delete</button>
 									</div>
 								</>
