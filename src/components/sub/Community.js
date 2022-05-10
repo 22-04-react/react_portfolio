@@ -1,11 +1,21 @@
 import Layout from '../common/Layout';
 import { useRef, useState } from 'react';
 
+/*
+	create - 데이터  저장
+	Read - 데이터 불러오기
+	Update - 데이터 수정
+	Delete - 데이터 삭제
+*/
+
 function Community() {
 	const input = useRef(null);
 	const textarea = useRef(null);
 
 	const dummyPosts = [
+		{ title: 'Hello5', content: 'Here comes description in detail.' },
+		{ title: 'Hello4', content: 'Here comes description in detail.' },
+		{ title: 'Hello3', content: 'Here comes description in detail.' },
 		{ title: 'Hello2', content: 'Here comes description in detail.' },
 		{ title: 'Hello1', content: 'Here comes description in detail.' },
 	];
@@ -23,6 +33,10 @@ function Community() {
 	const resetPost = () => {
 		input.current.value = '';
 		textarea.current.value = '';
+	};
+
+	const deletePost = (index) => {
+		setPosts(posts.filter((_, idx) => idx !== index));
 	};
 
 	return (
@@ -47,6 +61,10 @@ function Community() {
 						<article key={idx}>
 							<h2>{post.title}</h2>
 							<p>{post.content}</p>
+
+							<div className='btns'>
+								<button onClick={() => deletePost(idx)}>delete</button>
+							</div>
 						</article>
 					);
 				})}
