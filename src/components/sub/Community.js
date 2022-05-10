@@ -36,6 +36,8 @@ function Community() {
 	};
 
 	const deletePost = (index) => {
+		//filter는 기존 배열을 반복을 돌면서 특정 조건에 부합되는 값만 리턴
+		//인수로 받은 해당 순번을 제외한 나머지 모든 포스트를 리턴
 		setPosts(posts.filter((_, idx) => idx !== index));
 	};
 
