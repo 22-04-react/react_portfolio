@@ -7,6 +7,7 @@ function Community() {
 	const editInput = useRef(null);
 	const editTextarea = useRef(null);
 
+	/*
 	const dummyPosts = [
 		{ title: 'Hello5', content: 'Here comes description in detail.' },
 		{ title: 'Hello4', content: 'Here comes description in detail.' },
@@ -14,9 +15,16 @@ function Community() {
 		{ title: 'Hello2', content: 'Here comes description in detail.' },
 		{ title: 'Hello1', content: 'Here comes description in detail.' },
 	];
+	*/
 
-	const [posts, setPosts] = useState(dummyPosts);
-	//중복 수정을 막을 state추가
+	//로컬저장소에서 데이터를 받아와서 json 형태로 변환해 반환
+	const getLocalData = () => {
+		const data = localStorage.getItem('post');
+		return JSON.parse(data);
+	};
+
+	//반환된 값을 바로 posts state에 저장
+	const [posts, setPosts] = useState(getLocalData());
 	const [allowed, setAllowed] = useState(true);
 
 	const createPost = () => {
@@ -42,7 +50,6 @@ function Community() {
 	};
 
 	const enableUpdate = (index) => {
-		//수정모드 진입시 수정버튼 클릭 방지
 		setAllowed(false);
 		setPosts(
 			posts.map((post, idx) => {
@@ -53,7 +60,6 @@ function Community() {
 	};
 
 	const disableUpdate = (index) => {
-		//출력모드 진입시 수정버튼 클릭 가능
 		setAllowed(true);
 		setPosts(
 			posts.map((post, idx) => {
@@ -68,8 +74,6 @@ function Community() {
 			alert('수정할 제목과 본문을 입력하세요.');
 			return;
 		}
-
-		//수정완료시 다시 allowed true로 변경
 		setAllowed(true);
 
 		setPosts(
@@ -85,7 +89,8 @@ function Community() {
 	};
 
 	useEffect(() => {
-		console.log(posts);
+		//posts가 변경될때마다 해당 state를 문자열로 변환해서 로컬 저장소에 저장
+		localStorage.setItem('post', JSON.stringify(posts));
 	}, [posts]);
 
 	return (
@@ -137,7 +142,6 @@ function Community() {
 									<div className='btns'>
 										<button
 											onClick={() => {
-												//allowed가 true일때만 수정모드 변경가능
 												if (allowed) enableUpdate(idx);
 											}}>
 											edit
