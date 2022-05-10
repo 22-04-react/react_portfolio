@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from 'react';
 function Community() {
 	const input = useRef(null);
 	const textarea = useRef(null);
+	const editInput = useRef(null);
+	const editTextarea = useRef(null);
 
 	const dummyPosts = [
 		{ title: 'Hello5', content: 'Here comes description in detail.' },
@@ -41,11 +43,24 @@ function Community() {
 		);
 	};
 
-	//다시 출력모드로 변경하는 함수
 	const disableUpdate = (index) => {
 		setPosts(
 			posts.map((post, idx) => {
 				if (idx === index) post.enableUpdate = false;
+				return post;
+			})
+		);
+	};
+
+	//post수정 함수
+	const updatePost = (index) => {
+		setPosts(
+			posts.map((post, idx) => {
+				if (idx === index) {
+					post.title = editInput.current.value;
+					post.content = editTextarea.current.value;
+					post.enableUpdate = false;
+				}
 				return post;
 			})
 		);
@@ -78,16 +93,22 @@ function Community() {
 							{post.enableUpdate ? (
 								//수정모드
 								<>
-									<input type='text' defaultValue={post.title} />
+									<input
+										type='text'
+										defaultValue={post.title}
+										ref={editInput}
+									/>
 									<br />
 									<textarea
+										ref={editTextarea}
 										cols='30'
 										rows='10'
 										defaultValue={post.content}></textarea>
 
 									<div className='btns'>
 										<button onClick={() => disableUpdate(idx)}>cancel</button>
-										<button>save</button>
+										{/* 수정모드에서 저장버튼 클릭시 수정함수 호출 */}
+										<button onClick={() => updatePost(idx)}>save</button>
 									</div>
 								</>
 							) : (
