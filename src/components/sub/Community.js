@@ -7,23 +7,11 @@ function Community() {
 	const editInput = useRef(null);
 	const editTextarea = useRef(null);
 
-	/*
-	const dummyPosts = [
-		{ title: 'Hello5', content: 'Here comes description in detail.' },
-		{ title: 'Hello4', content: 'Here comes description in detail.' },
-		{ title: 'Hello3', content: 'Here comes description in detail.' },
-		{ title: 'Hello2', content: 'Here comes description in detail.' },
-		{ title: 'Hello1', content: 'Here comes description in detail.' },
-	];
-	*/
-
-	//로컬저장소에서 데이터를 받아와서 json 형태로 변환해 반환
 	const getLocalData = () => {
 		const data = localStorage.getItem('post');
 		return JSON.parse(data);
 	};
 
-	//반환된 값을 바로 posts state에 저장
 	const [posts, setPosts] = useState(getLocalData());
 	const [allowed, setAllowed] = useState(true);
 
@@ -89,7 +77,6 @@ function Community() {
 	};
 
 	useEffect(() => {
-		//posts가 변경될때마다 해당 state를 문자열로 변환해서 로컬 저장소에 저장
 		localStorage.setItem('post', JSON.stringify(posts));
 	}, [posts]);
 
