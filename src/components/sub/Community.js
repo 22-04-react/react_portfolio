@@ -41,6 +41,16 @@ function Community() {
 		);
 	};
 
+	//다시 출력모드로 변경하는 함수
+	const disableUpdate = (index) => {
+		setPosts(
+			posts.map((post, idx) => {
+				if (idx === index) post.enableUpdate = false;
+				return post;
+			})
+		);
+	};
+
 	useEffect(() => {
 		console.log(posts);
 	}, [posts]);
@@ -76,7 +86,7 @@ function Community() {
 										defaultValue={post.content}></textarea>
 
 									<div className='btns'>
-										<button>cancel</button>
+										<button onClick={() => disableUpdate(idx)}>cancel</button>
 										<button>save</button>
 									</div>
 								</>
