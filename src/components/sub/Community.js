@@ -32,12 +32,8 @@ function Community() {
 		setPosts(posts.filter((_, idx) => idx !== index));
 	};
 
-	//수정버튼 클릭시 실행되는 함수
-	//클릭한 버튼의 포스트 순번을 파라미터로 전달
 	const enableUpdate = (index) => {
 		setPosts(
-			//기존 배열값을 반복돌면서 인수로 전달된 순번과 현재 반복도는 순번이 같은 포스트만 찾아서
-			//enableUpdate:true라는 값을 추가한뒤 setPosts로 기존 state값 변경
 			posts.map((post, idx) => {
 				if (idx === index) post.enableUpdate = true;
 				return post;
@@ -45,7 +41,6 @@ function Community() {
 		);
 	};
 
-	//posts 값이 변경될때마다 콘솔로 출력
 	useEffect(() => {
 		console.log(posts);
 	}, [posts]);
@@ -70,14 +65,33 @@ function Community() {
 				{posts.map((post, idx) => {
 					return (
 						<article key={idx}>
-							<h2>{post.title}</h2>
-							<p>{post.content}</p>
+							{post.enableUpdate ? (
+								//수정모드
+								<>
+									<input type='text' defaultValue={post.title} />
+									<br />
+									<textarea
+										cols='30'
+										rows='10'
+										defaultValue={post.content}></textarea>
 
-							<div className='btns'>
-								{/* 수정 버튼 클릭시 enableUpdate호출하면서 인수로 수정할 post순번 전달 */}
-								<button onClick={() => enableUpdate(idx)}>edit</button>
-								<button onClick={() => deletePost(idx)}>delete</button>
-							</div>
+									<div className='btns'>
+										<button>cancel</button>
+										<button>save</button>
+									</div>
+								</>
+							) : (
+								//출력모드
+								<>
+									<h2>{post.title}</h2>
+									<p>{post.content}</p>
+
+									<div className='btns'>
+										<button onClick={() => enableUpdate(idx)}>edit</button>
+										<button onClick={() => deletePost(idx)}>delete</button>
+									</div>
+								</>
+							)}
 						</article>
 					);
 				})}
