@@ -69,9 +69,17 @@ function Flickr() {
 	};
 
 	useEffect(() => {
+		/*
 		getFlickr({
 			type: 'interest',
 			count: 100,
+		});
+		*/
+
+		getFlickr({
+			type: 'user',
+			count: 10,
+			user: '164021883@N04',
 		});
 	}, []);
 
