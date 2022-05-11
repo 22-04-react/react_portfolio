@@ -1,11 +1,11 @@
 import Layout from '../common/Layout';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Popup from '../common/Popup';
 
 function Youtube() {
+	const pop = useRef(null);
 	const [vids, setVids] = useState([]);
-	const [open, setOpen] = useState(false);
 	const [index, setIndex] = useState(0);
 
 	useEffect(() => {
@@ -20,11 +20,6 @@ function Youtube() {
 		});
 	}, []);
 
-	const handleClick = (index) => {
-		setOpen(true);
-		setIndex(index);
-	};
-
 	return (
 		<>
 			<Layout name={'Youtube'}>
@@ -34,7 +29,12 @@ function Youtube() {
 					const date = vid.snippet.publishedAt;
 
 					return (
-						<article key={idx} onClick={() => handleClick(idx)}>
+						<article
+							key={idx}
+							onClick={() => {
+								pop.current.open();
+								setIndex(idx);
+							}}>
 							<div className='pic'>
 								<img src={vid.snippet.thumbnails.standard.url} />
 							</div>
@@ -46,13 +46,18 @@ function Youtube() {
 				})}
 			</Layout>
 
-			{open ? (
-				<Popup setOpen={setOpen}>
-					<iframe
-						src={`https://www.youtube.com/embed/${vids[index].snippet.resourceId.videoId}`}
-						frameBorder='0'></iframe>
-				</Popup>
-			) : null}
+			<Popup ref={pop}>
+				{vids.length !== 0 ? (
+					<>
+						<iframe
+							src={`https://www.youtube.com/embed/${vids[index].snippet.resourceId.videoId}`}
+							frameBorder='0'></iframe>
+						<span className='close' onClick={() => pop.current.close()}>
+							close
+						</span>
+					</>
+				) : null}
+			</Popup>
 		</>
 	);
 }
