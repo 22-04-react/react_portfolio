@@ -11,6 +11,7 @@ function Flickr() {
 	const interest_url = `https://www.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json`;
 	const search_url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json&tags=ocean`;
 
+	//getFlickr함수에 원하는 주소값을 전달할 수 있도록 url이라는 파라미터 추가
 	const getFlickr = async (url) => {
 		await axios.get(url).then((json) => {
 			console.log(json.data.photos.photo);
@@ -21,11 +22,13 @@ function Flickr() {
 	};
 
 	useEffect(() => {
+		//처음 컴포넌트 로딩시 interest 인수로 해당 갤러리 화면 출력
 		getFlickr(interest_url);
 	}, []);
 
 	return (
 		<Layout name={'Flickr'}>
+			{/* 버튼 클릭시 frame에 on을 지워서 기존 갤러리 사라지게 하고 interest갤러리 호출 */}
 			<button
 				onClick={() => {
 					frame.current.classList.remove('on');
@@ -34,6 +37,7 @@ function Flickr() {
 				interest gallery
 			</button>
 
+			{/* 버튼 클릭시 frame에 on을 지워서 기존 갤러리 사라지게 하고 search갤러리 호출 */}
 			<button
 				onClick={() => {
 					frame.current.classList.remove('on');
