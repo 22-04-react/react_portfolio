@@ -4,8 +4,11 @@ import axios from 'axios';
 import Masonry from 'react-masonry-component';
 
 function Flickr() {
+	const path = process.env.PUBLIC_URL;
 	const frame = useRef(null);
 	const [items, setItems] = useState([]);
+	const [loading, setLoading] = useState(true);
+
 	const masonryOptions = {
 		transitionDuration: '0.5s',
 	};
@@ -20,7 +23,10 @@ function Flickr() {
 			setItems(json.data.photos.photo);
 		});
 
-		frame.current.classList.add('on');
+		setTimeout(() => {
+			frame.current.classList.add('on');
+			setLoading(false);
+		}, 1000);
 	};
 
 	useEffect(() => {
@@ -29,8 +35,12 @@ function Flickr() {
 
 	return (
 		<Layout name={'Flickr'}>
+			{loading ? (
+				<img className='loading' src={path + '/img/loading.gif'} />
+			) : null}
 			<button
 				onClick={() => {
+					setLoading(true);
 					frame.current.classList.remove('on');
 					getFlickr(interest_url);
 				}}>
@@ -39,6 +49,7 @@ function Flickr() {
 
 			<button
 				onClick={() => {
+					setLoading(true);
 					frame.current.classList.remove('on');
 					getFlickr(search_url);
 				}}>
