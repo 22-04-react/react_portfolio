@@ -21,7 +21,7 @@
 			clear: both;
 		}
 		article {
-			width: 20%;
+			width: 25%;
 			float: left;
 			padding: 10px;
 
@@ -48,6 +48,27 @@
 					word-wrap: break-word;
 					//word-wrap: normal : 단어단위로 줄바꿈
 					//word-wrap: breack-word : 글자단위로 줄바꿈
+				}
+
+				.profile {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+
+					img {
+						width: 40px;
+						height: 40px;
+					}
+					span {
+						font: 12px/1 'arial';
+						color: orange;
+						margin-left: 10px;
+						cursor: pointer;
+
+						&:hover {
+							color: aqua;
+						}
+					}
 				}
 			}
 		}

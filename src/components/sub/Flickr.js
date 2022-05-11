@@ -17,6 +17,7 @@ function Flickr() {
 		const num = opt.count;
 		const method_interest = 'flickr.interestingness.getList';
 		const method_search = 'flickr.photos.search';
+		const method_user = 'flickr.people.getPhotos';
 		let url = '';
 
 		if (opt.type === 'interest') {
@@ -24,6 +25,9 @@ function Flickr() {
 		}
 		if (opt.type === 'search') {
 			url = `https://www.flickr.com/services/rest/?method=${method_search}&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json&tags=${opt.tags}`;
+		}
+		if (opt.type === 'user') {
+			url = `https://www.flickr.com/services/rest/?method=${method_user}&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json&user_id=${opt.user}`;
 		}
 
 		await axios.get(url).then((json) => {
@@ -85,7 +89,7 @@ function Flickr() {
 
 						getFlickr({
 							type: 'interest',
-							count: 500,
+							count: 100,
 						});
 					}
 				}}>
@@ -115,6 +119,28 @@ function Flickr() {
 										/>
 									</div>
 									<h2>{item.title}</h2>
+
+									<div className='profile'>
+										<img
+											src={`http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg`}
+										/>
+										<span
+											onClick={(e) => {
+												if (enableClick) {
+													setEnableClick(false);
+													setLoading(true);
+													frame.current.classList.remove('on');
+
+													getFlickr({
+														type: 'user',
+														count: 100,
+														user: e.currentTarget.innerText,
+													});
+												}
+											}}>
+											{item.owner}
+										</span>
+									</div>
 								</div>
 							</article>
 						);
