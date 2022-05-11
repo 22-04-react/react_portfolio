@@ -8,6 +8,7 @@ function Flickr() {
 	const frame = useRef(null);
 	const [items, setItems] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [enableClick, setEnableClick] = useState(true);
 
 	const masonryOptions = {
 		transitionDuration: '0.5s',
@@ -26,6 +27,7 @@ function Flickr() {
 		setTimeout(() => {
 			frame.current.classList.add('on');
 			setLoading(false);
+			setEnableClick(true);
 		}, 1000);
 	};
 
@@ -40,18 +42,24 @@ function Flickr() {
 			) : null}
 			<button
 				onClick={() => {
-					setLoading(true);
-					frame.current.classList.remove('on');
-					getFlickr(interest_url);
+					if (enableClick) {
+						setEnableClick(false);
+						setLoading(true);
+						frame.current.classList.remove('on');
+						getFlickr(interest_url);
+					}
 				}}>
 				interest gallery
 			</button>
 
 			<button
 				onClick={() => {
-					setLoading(true);
-					frame.current.classList.remove('on');
-					getFlickr(search_url);
+					if (enableClick) {
+						setEnableClick(false);
+						setLoading(true);
+						frame.current.classList.remove('on');
+						getFlickr(search_url);
+					}
 				}}>
 				search gallery
 			</button>
