@@ -131,6 +131,13 @@ function Flickr() {
 									<div className='profile'>
 										<img
 											src={`http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg`}
+											onError={(e) => {
+												//만약 해당 이미지요소의 소스이미지가 없어서 error이벤트가 발생하면 src값을 setAttribute로 대체이미지를 대신 출력
+												e.target.setAttribute(
+													'src',
+													'https://www.flickr.com/images/buddyicon.gif'
+												);
+											}}
 										/>
 										<span
 											onClick={(e) => {
