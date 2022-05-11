@@ -6,13 +6,11 @@ import Masonry from 'react-masonry-component';
 function Flickr() {
 	const path = process.env.PUBLIC_URL;
 	const frame = useRef(null);
+	const input = useRef(null);
 	const [items, setItems] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [enableClick, setEnableClick] = useState(true);
-
-	const masonryOptions = {
-		transitionDuration: '0.5s',
-	};
+	const masonryOptions = { transitionDuration: '0.5s' };
 
 	const getFlickr = async (opt) => {
 		const key = '4612601b324a2fe5a1f5f7402bf8d87a';
@@ -21,11 +19,9 @@ function Flickr() {
 		const method_search = 'flickr.photos.search';
 		let url = '';
 
-		//인수로 받은 객체의 type이 interest면 interest url반환
 		if (opt.type === 'interest') {
 			url = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json`;
 		}
-		//인수로 받은 객체의 type이 search면 tags를 받아 해당 검색어의 데이터를 불러오는 url반환
 		if (opt.type === 'search') {
 			url = `https://www.flickr.com/services/rest/?method=${method_search}&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json&tags=${opt.tags}`;
 		}
@@ -69,22 +65,28 @@ function Flickr() {
 				interest gallery
 			</button>
 
-			<button
-				onClick={() => {
-					if (enableClick) {
-						setEnableClick(false);
-						setLoading(true);
-						frame.current.classList.remove('on');
+			<div className='searchBox'>
+				<input type='text' ref={input} />
+				<button
+					onClick={() => {
+						const result = input.current.value;
+						input.current.value = '';
 
-						getFlickr({
-							type: 'search',
-							count: 500,
-							tags: 'spring',
-						});
-					}
-				}}>
-				search gallery
-			</button>
+						if (enableClick) {
+							setEnableClick(false);
+							setLoading(true);
+							frame.current.classList.remove('on');
+
+							getFlickr({
+								type: 'search',
+								count: 100,
+								tags: result,
+							});
+						}
+					}}>
+					search
+				</button>
+			</div>
 
 			<div className='frame' ref={frame}>
 				<Masonry elementType={'div'} options={masonryOptions}>
