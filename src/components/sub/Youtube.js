@@ -32,6 +32,7 @@ function Youtube() {
 						<article
 							key={idx}
 							onClick={() => {
+								//Popup컴포넌트의 함수를 이용해 팝업 열기
 								pop.current.open();
 								setIndex(idx);
 							}}>
@@ -52,6 +53,7 @@ function Youtube() {
 						<iframe
 							src={`https://www.youtube.com/embed/${vids[index].snippet.resourceId.videoId}`}
 							frameBorder='0'></iframe>
+						{/* Popup컴포넌트의 함수를 이용해 팝업 닫기 */}
 						<span className='close' onClick={() => pop.current.close()}>
 							close
 						</span>
@@ -63,8 +65,3 @@ function Youtube() {
 }
 
 export default Youtube;
-
-/*
-	e.target은 이벤트구문에서의 연결된 선택자가 아닌 실제 화면상에서 이벤트가 발생한 대상을 지칭
-	e.currentTarget은 이벤트 구문에서의 연결된 선택자를 지칭
-*/
