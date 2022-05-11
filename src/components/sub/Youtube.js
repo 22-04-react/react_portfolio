@@ -15,7 +15,6 @@ function Youtube() {
 		const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${key}&playlistId=${playlistId}&maxResults=${num}`;
 
 		axios.get(url).then((json) => {
-			console.log(json.data.items);
 			setVids(json.data.items);
 		});
 	}, []);
@@ -32,7 +31,6 @@ function Youtube() {
 						<article
 							key={idx}
 							onClick={() => {
-								//Popup컴포넌트의 함수를 이용해 팝업 열기
 								pop.current.open();
 								setIndex(idx);
 							}}>
@@ -53,7 +51,6 @@ function Youtube() {
 						<iframe
 							src={`https://www.youtube.com/embed/${vids[index].snippet.resourceId.videoId}`}
 							frameBorder='0'></iframe>
-						{/* Popup컴포넌트의 함수를 이용해 팝업 닫기 */}
 						<span className='close' onClick={() => pop.current.close()}>
 							close
 						</span>
