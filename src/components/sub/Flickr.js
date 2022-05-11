@@ -37,10 +37,37 @@ function Flickr() {
 		}, 1000);
 	};
 
+	const showSearch = (e) => {
+		const result = input.current.value.trim();
+
+		//입력된 키보드 값이 엔터가 아니면 함수 종료
+		if (e.key !== 'Enter') return;
+
+		//입력된 검색어가 없으면 경고창 띄우고 종료
+		if (!result) {
+			alert('검색어를 입력하세요');
+			return;
+		}
+
+		input.current.value = '';
+
+		if (enableClick) {
+			setEnableClick(false);
+			setLoading(true);
+			frame.current.classList.remove('on');
+
+			getFlickr({
+				type: 'search',
+				count: 100,
+				tags: result,
+			});
+		}
+	};
+
 	useEffect(() => {
 		getFlickr({
 			type: 'interest',
-			count: 500,
+			count: 100,
 		});
 	}, []);
 
@@ -66,26 +93,8 @@ function Flickr() {
 			</button>
 
 			<div className='searchBox'>
-				<input type='text' ref={input} />
-				<button
-					onClick={() => {
-						const result = input.current.value;
-						input.current.value = '';
-
-						if (enableClick) {
-							setEnableClick(false);
-							setLoading(true);
-							frame.current.classList.remove('on');
-
-							getFlickr({
-								type: 'search',
-								count: 100,
-								tags: result,
-							});
-						}
-					}}>
-					search
-				</button>
+				<input type='text' ref={input} onKeyUp={showSearch} />
+				<button onClick={showSearch}>search</button>
 			</div>
 
 			<div className='frame' ref={frame}>
@@ -111,3 +120,9 @@ function Flickr() {
 }
 
 export default Flickr;
+
+/*
+	keyDown (키를 누르는 순간) 
+	keyUp, (키를 눌렀다 떼는 순간)
+	keyPress (키를 눌렀다 떼는 순간, 특수키가 안먹음)
+*/
