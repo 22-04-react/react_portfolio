@@ -14,12 +14,22 @@ function Flickr() {
 		transitionDuration: '0.5s',
 	};
 
-	const key = '4612601b324a2fe5a1f5f7402bf8d87a';
-	const num = 50;
-	const interest_url = `https://www.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json`;
-	const search_url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json&tags=ocean`;
+	const getFlickr = async (opt) => {
+		const key = '4612601b324a2fe5a1f5f7402bf8d87a';
+		const num = opt.count;
+		const method_interest = 'flickr.interestingness.getList';
+		const method_search = 'flickr.photos.search';
+		let url = '';
 
-	const getFlickr = async (url) => {
+		//인수로 받은 객체의 type이 interest면 interest url반환
+		if (opt.type === 'interest') {
+			url = `https://www.flickr.com/services/rest/?method=${method_interest}&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json`;
+		}
+		//인수로 받은 객체의 type이 search면 tags를 받아 해당 검색어의 데이터를 불러오는 url반환
+		if (opt.type === 'search') {
+			url = `https://www.flickr.com/services/rest/?method=${method_search}&per_page=${num}&api_key=${key}&nojsoncallback=1&format=json&tags=${opt.tags}`;
+		}
+
 		await axios.get(url).then((json) => {
 			setItems(json.data.photos.photo);
 		});
@@ -32,7 +42,10 @@ function Flickr() {
 	};
 
 	useEffect(() => {
-		getFlickr(interest_url);
+		getFlickr({
+			type: 'interest',
+			count: 500,
+		});
 	}, []);
 
 	return (
@@ -46,7 +59,11 @@ function Flickr() {
 						setEnableClick(false);
 						setLoading(true);
 						frame.current.classList.remove('on');
-						getFlickr(interest_url);
+
+						getFlickr({
+							type: 'interest',
+							count: 500,
+						});
 					}
 				}}>
 				interest gallery
@@ -58,7 +75,12 @@ function Flickr() {
 						setEnableClick(false);
 						setLoading(true);
 						frame.current.classList.remove('on');
-						getFlickr(search_url);
+
+						getFlickr({
+							type: 'search',
+							count: 500,
+							tags: 'spring',
+						});
 					}
 				}}>
 				search gallery
