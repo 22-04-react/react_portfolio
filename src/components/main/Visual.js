@@ -9,6 +9,8 @@ function Visual() {
 		<figure className='myScroll on'>
 			<Swiper
 				spaceBetween={50}
+				centeredSlides={true}
+				grabCursor={true}
 				loop={true}
 				slidesPerView={3}
 				pagination={{
