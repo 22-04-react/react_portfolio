@@ -13,10 +13,24 @@ function Pics(props) {
 			<h2
 				style={
 					//보정된 현재 섹션의 위치값에 도달해야지 스타일값 연동
-					position >= 0 ? { transform: `translateX(${position}px)` } : null
+					position >= 0
+						? { transform: `translateX(${position / 1.2}px)` }
+						: null
 				}>
 				FLICKR
 			</h2>
+			<p
+				style={
+					position >= 0
+						? {
+								transform: `translateX(${position * 2}px) scale(${
+									1 + position / 1000
+								})`,
+						  }
+						: null
+				}>
+				FLICKR
+			</p>
 		</section>
 	);
 }
