@@ -7,6 +7,7 @@ import Btns from './Btns';
 import Anime from '../../class/anime.js';
 import { useRef, useEffect, useState } from 'react';
 
+//미션2 - 브라우저 스크롤시 버튼 활성화 함수 적용
 function Main() {
 	const main = useRef(null);
 	const pos = useRef([]);
@@ -18,10 +19,28 @@ function Main() {
 		for (const sec of secs) pos.current.push(sec.offsetTop);
 	};
 
+	const activation = () => {
+		const base = -200;
+		const scroll = window.scrollY;
+		const btns = main.current.querySelectorAll('.scroll_navi li');
+
+		pos.current.map((pos, idx) => {
+			if (scroll >= pos + base) {
+				for (const btn of btns) btn.classList.remove('on');
+				btns[idx].classList.add('on');
+			}
+		});
+	};
+
 	useEffect(() => {
 		getPos();
 		window.addEventListener('resize', getPos);
-		return () => window.removeEventListener('resize', getPos);
+		window.addEventListener('scroll', activation);
+
+		return () => {
+			window.removeEventListener('resize', getPos);
+			window.removeEventListener('scroll', activation);
+		};
 	}, []);
 
 	useEffect(() => {
