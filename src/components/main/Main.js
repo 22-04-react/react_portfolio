@@ -8,11 +8,12 @@ import Anime from '../../class/anime.js';
 import { useRef, useEffect, useState } from 'react';
 
 function Main() {
-	console.log('main');
 	const main = useRef(null);
 	const pos = useRef([]);
 	const [index, setIndex] = useState(0);
 	const [num, setNum] = useState(0);
+	//현재 스크롤되는 값을 관리할 state추가
+	const [scrolled, setScrolled] = useState(0);
 
 	const getPos = () => {
 		const secs = main.current.querySelectorAll('.myScroll');
@@ -23,13 +24,17 @@ function Main() {
 	const activation = () => {
 		const base = -200;
 		const scroll = window.scrollY;
+		//현재 스크롤되는 거리값을 scrolled state에 저장해서 관리
+		setScrolled(scroll);
 		const btns = main.current.querySelectorAll('.scroll_navi li');
 		const secs = main.current.querySelectorAll('.myScroll');
 
 		pos.current.map((pos, idx) => {
 			if (scroll >= pos + base) {
-				for (const btn of btns) btn.classList.remove('on');
-				for (const sec of secs) sec.classList.remove('on');
+				for (let i = 0; i < secs.length; i++) {
+					btns[i].classList.remove('on');
+					secs[i].classList.remove('on');
+				}
 				btns[idx].classList.add('on');
 				secs[idx].classList.add('on');
 			}
@@ -63,7 +68,7 @@ function Main() {
 			<Header type={'main'} />
 			<Visual />
 			<News />
-			<Pics />
+			<Pics scrolled={scrolled} />
 			<Vids />
 			<Btns setIndex={setIndex} num={num} />
 		</main>

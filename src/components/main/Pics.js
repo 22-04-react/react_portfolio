@@ -1,7 +1,9 @@
-function Pics() {
+function Pics(props) {
+	console.log(props.scrolled);
+
 	return (
 		<section id='pics' className='myScroll'>
-			Pics
+			<h2>FLICKR</h2>
 		</section>
 	);
 }
