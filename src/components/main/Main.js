@@ -5,18 +5,17 @@ import Pics from './Pics';
 import Vids from './Vids';
 import Btns from './Btns';
 import Anime from '../../class/anime.js';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
-//미션 - 브라우저 리사이즈시 각 섹션들의 새로 위치값 갱신해서 저장 (11시 10분)
 function Main() {
 	const main = useRef(null);
 	const pos = useRef([]);
+	const [index, setIndex] = useState(0);
 
 	const getPos = () => {
 		const secs = main.current.querySelectorAll('.myScroll');
 		pos.current = [];
 		for (const sec of secs) pos.current.push(sec.offsetTop);
-		console.log(pos.current);
 	};
 
 	useEffect(() => {
@@ -25,6 +24,14 @@ function Main() {
 		return () => window.removeEventListener('resize', getPos);
 	}, []);
 
+	useEffect(() => {
+		new Anime(window, {
+			prop: 'scroll',
+			value: pos.current[index],
+			duration: 500,
+		});
+	}, [index]);
+
 	return (
 		<main ref={main}>
 			<Header type={'main'} />
@@ -32,7 +39,7 @@ function Main() {
 			<News />
 			<Pics />
 			<Vids />
-			<Btns />
+			<Btns setIndex={setIndex} />
 		</main>
 	);
 }
