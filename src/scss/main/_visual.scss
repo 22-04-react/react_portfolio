@@ -4,4 +4,36 @@ figure {
 	background: #555;
 	overflow: hidden;
 	position: relative;
+	padding: 200px 0px 100px;
+
+	.swiper {
+		height: 100%;
+		overflow: visible;
+
+		.swiper-slide {
+			width: 100%;
+			background: aqua;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font: bold 50px/1 'arial';
+			color: #fff;
+		}
+
+		.swiper-pagination {
+			bottom: -60px;
+
+			.swiper-pagination-bullet {
+				transition: 0.5s;
+				background: rgba(255, 255, 255, 0.8);
+			}
+
+			.swiper-pagination-bullet-active {
+				width: 50px;
+				height: 8px;
+				border-radius: 4px;
+				background: aqua;
+			}
+		}
+	}
 }
