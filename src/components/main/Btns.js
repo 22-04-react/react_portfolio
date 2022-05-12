@@ -1,5 +1,4 @@
 function Btns(props) {
-	//숫자값을 가지고 해당 숫자의 갯수만큼 배열생성
 	const arr = Array.from(Array(props.num).keys());
 
 	return (

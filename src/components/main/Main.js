@@ -14,7 +14,10 @@ function Main() {
 	const [index, setIndex] = useState(0);
 	const [num, setNum] = useState(0);
 
-	const getPos = (secs) => {
+	const getPos = () => {
+		console.log('getPos');
+		//getPos함수에 익명함수로 인수를 받지 않게 하기 위해 secs를 getPos함수 내부에서 구해줌
+		const secs = main.current.querySelectorAll('.myScroll');
 		pos.current = [];
 		for (const sec of secs) pos.current.push(sec.offsetTop);
 	};
@@ -35,8 +38,11 @@ function Main() {
 	useEffect(() => {
 		const secs = main.current.querySelectorAll('.myScroll');
 		setNum(secs.length);
-		getPos(secs);
-		window.addEventListener('resize', () => getPos(secs));
+		getPos();
+
+		//window에 이벤트 등록시 선언적 함수로 연결해야 removeEventLister를 연결할 수 있으므로
+		//인수를 전달하기 위해 익명함수로 감싸주면 안됨
+		window.addEventListener('resize', getPos);
 		window.addEventListener('scroll', activation);
 
 		return () => {
