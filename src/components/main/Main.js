@@ -4,6 +4,7 @@ import News from './News';
 import Pics from './Pics';
 import Vids from './Vids';
 import Btns from './Btns';
+import Anime from '../../class/anime.js';
 
 function Main() {
 	return (
