@@ -12,11 +12,13 @@ function Main() {
 	const main = useRef(null);
 	const pos = useRef([]);
 	const [index, setIndex] = useState(0);
+	const [arr, setArr] = useState([]);
 
 	const getPos = () => {
 		const secs = main.current.querySelectorAll('.myScroll');
 		pos.current = [];
 		for (const sec of secs) pos.current.push(sec.offsetTop);
+		setArr(pos.current);
 	};
 
 	const activation = () => {
@@ -58,7 +60,7 @@ function Main() {
 			<News />
 			<Pics />
 			<Vids />
-			<Btns setIndex={setIndex} />
+			<Btns setIndex={setIndex} num={arr} />
 		</main>
 	);
 }

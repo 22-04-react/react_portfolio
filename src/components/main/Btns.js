@@ -1,10 +1,10 @@
 function Btns(props) {
+	console.log(props);
 	return (
 		<ul className='scroll_navi'>
-			<li className='on' onClick={() => props.setIndex(0)}></li>
-			<li onClick={() => props.setIndex(1)}></li>
-			<li onClick={() => props.setIndex(2)}></li>
-			<li onClick={() => props.setIndex(3)}></li>
+			{props.num.map((_, idx) => (
+				<li key={idx} onClick={() => props.setIndex(idx)}></li>
+			))}
 		</ul>
 	);
 }
