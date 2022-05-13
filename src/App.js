@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setYoutube } from './redux/action';
+import { setYoutube, setMembers } from './redux/action';
 import axios from 'axios';
 
 //common
@@ -19,11 +19,11 @@ import Youtube from './components/sub/Youtube';
 import Location from './components/sub/Location';
 import Join from './components/sub/Join';
 import Flickr from './components/sub/Flickr';
-
 import './scss/style.scss';
 
+const path = process.env.PUBLIC_URL;
+
 function App() {
-	//루트 컴포넌트인 App에서 youtube data를 가져와서 전역 store에 저장하는 함수
 	const dispatch = useDispatch();
 	const fetchYoutube = async () => {
 		const key = 'AIzaSyBZFBuapkASPcRBXB2-d_ak5-ecCpVicI4';
@@ -35,10 +35,16 @@ function App() {
 			dispatch(setYoutube(json.data.items));
 		});
 	};
+	const fetchMembers = async () => {
+		const url = path + '/DB/member.json';
+		await axios.get(url).then((json) => {
+			dispatch(setMembers(json.data.members));
+		});
+	};
 
-	//해당 루트 컴포넌트가 마운트 되면 stroe에 데이터 저장
 	useEffect(() => {
 		fetchYoutube();
+		fetchMembers();
 	}, []);
 
 	return (
