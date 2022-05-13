@@ -15,4 +15,11 @@
 		position: relative;
 		top: -100px;
 	}
+
+	.list {
+		li {
+			display: inline-block;
+			cursor: pointer;
+		}
+	}
 }
