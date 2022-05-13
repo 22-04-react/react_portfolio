@@ -35,7 +35,7 @@ function Youtube() {
 			</Layout>
 
 			<Popup ref={pop}>
-				{vidData.length !== 0 ? (
+				{vidData.length !== 0 && (
 					<>
 						<iframe
 							src={`https://www.youtube.com/embed/${vidData[index].snippet.resourceId.videoId}`}
@@ -44,7 +44,7 @@ function Youtube() {
 							close
 						</span>
 					</>
-				) : null}
+				)}
 			</Popup>
 		</>
 	);

@@ -3,4 +3,9 @@
 	height: 100vh;
 	padding: 5vw;
 	background: lightyellow;
+
+	ul li {
+		display: inline-block;
+		cursor: pointer;
+	}
 }
