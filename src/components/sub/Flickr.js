@@ -72,13 +72,6 @@ function Flickr() {
 	};
 
 	useEffect(() => {
-		/*
-		getFlickr({
-			type: 'interest',
-			count: 100,
-		});
-		*/
-
 		getFlickr({
 			type: 'user',
 			count: 10,
@@ -123,14 +116,14 @@ function Flickr() {
 					<Masonry elementType={'div'} options={masonryOptions}>
 						{items.map((item, idx) => {
 							return (
-								<article
-									key={idx}
-									onClick={() => {
-										setIndex(idx);
-										pop.current.open();
-									}}>
+								<article key={idx}>
 									<div className='inner'>
-										<div className='pic'>
+										<div
+											className='pic'
+											onClick={() => {
+												setIndex(idx);
+												pop.current.open();
+											}}>
 											<img
 												src={`https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg`}
 											/>
