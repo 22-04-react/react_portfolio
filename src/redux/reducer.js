@@ -30,9 +30,26 @@ const galleryReducer = (state = { gallery: [] }, action) => {
 	}
 };
 
+const flickrReducer = (state = { flickr: [] }, action) => {
+	switch (action.type) {
+		case 'FLICKR_START':
+			return { ...state };
+
+		case 'FLICKR_SUCCESS':
+			return { ...state, flickr: action.payload };
+
+		case 'FLICKR_ERROR':
+			return { ...state, error: action.payload };
+
+		default:
+			return state;
+	}
+};
+
 const reducers = combineReducers({
 	memberReducer,
 	youtubeReducer,
 	galleryReducer,
+	flickrReducer,
 });
 export default reducers;
