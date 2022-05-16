@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import * as types from './redux/actionType';
 
 //common
 import Header from './components/common/Header';
@@ -24,15 +25,15 @@ function App() {
 	useEffect(() => {
 		//플리커 액션 객체를 saga.js에 전달
 		dispatch({
-			type: 'FLICKR_START',
+			type: types.FLICKR.start,
 			opt: { type: 'user', count: 100, user: '164021883@N04' },
 		});
 
 		//유튜브 액션 객체를 saga.js에 전달
-		dispatch({ type: 'YOUTUBE_START' });
+		dispatch({ type: types.YOUTUBE.start });
 
 		//멤버 액션 객체를 sgag.js에 전달
-		dispatch({ type: 'MEMBER_START' });
+		dispatch({ type: types.MEMBERS.start });
 	}, []);
 
 	return (

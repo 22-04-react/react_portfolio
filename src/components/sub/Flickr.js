@@ -3,6 +3,7 @@ import Popup from '../common/Popup';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Masonry from 'react-masonry-component';
+import * as types from '../../redux/actionType';
 
 function Flickr() {
 	const { flickr } = useSelector((store) => store.flickrReducer);
@@ -53,13 +54,10 @@ function Flickr() {
 	};
 
 	useEffect(() => {
-		dispatch({ type: 'FLICKR_START', opt });
+		dispatch({ type: types.FLICKR.start, opt });
 	}, [opt]);
 
 	useEffect(() => {
-		//기존의 endLoading함수를 api요청을 할때 실행하는게 아닌
-		//store를 통해 데이터호출이 완료될때마다 실행
-		//이때 처음 flickr값은 빈 배열이 들어오니 그때만 조건문으로 실행되지 않도록 처리
 		if (flickr.length !== 0) endLoading();
 	}, [flickr]);
 
