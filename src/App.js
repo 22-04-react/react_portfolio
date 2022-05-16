@@ -25,16 +25,7 @@ const path = process.env.PUBLIC_URL;
 
 function App() {
 	const dispatch = useDispatch();
-	const fetchYoutube = async () => {
-		const key = 'AIzaSyBZFBuapkASPcRBXB2-d_ak5-ecCpVicI4';
-		const playlistId = 'PLHtvRFLN5v-UVVpNfWqtgZ6YPs9ZJMWRK';
-		const num = 5;
-		const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${key}&playlistId=${playlistId}&maxResults=${num}`;
 
-		await axios.get(url).then((json) => {
-			dispatch(setYoutube(json.data.items));
-		});
-	};
 	const fetchMembers = async () => {
 		const url = path + '/DB/member.json';
 		await axios.get(url).then((json) => {
@@ -53,12 +44,12 @@ function App() {
 	};
 
 	useEffect(() => {
-		//App에서 옵션객체를 전달에서 초기 flickr데이터 store에 저장
 		dispatch({
 			type: 'FLICKR_START',
 			opt: { type: 'user', count: 100, user: '164021883@N04' },
 		});
-		fetchYoutube();
+		//유튜브 액션 객체를 saga.js에 전달
+		dispatch({ type: 'YOUTUBE_START' });
 		fetchMembers();
 		fetchGallery();
 	}, []);
