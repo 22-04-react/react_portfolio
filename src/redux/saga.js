@@ -12,8 +12,11 @@ import { fetchFlickr } from './api';
 //컴포넌트에서 받은 인수값을 api.js에 있는 axios함수에 연결하는 함수
 export function* returnFlickr(action) {
 	const response = yield call(fetchFlickr, action.opt);
-	console.log(response);
-	yield put({ type: 'FLICKR_SUCCESS', payload: response.data.photos.photo });
+	if (response) {
+		yield put({ type: 'FLICKR_SUCCESS', payload: response.data.photos.photo });
+	} else {
+		yield put({ type: 'FLICKR_ERROR', payload: '데이터호출에 실패했습니다.' });
+	}
 }
 
 //요청받은 액션 타입에 따라 함수호출
