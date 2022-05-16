@@ -8,7 +8,8 @@ function Pics(props) {
 	const base = 400;
 	const position = scrolled - start + base;
 
-	const pics = useSelector((store) => store.galleryReducer.gallery);
+	//flickrReducer 데이터값 연동
+	const pics = useSelector((store) => store.flickrReducer.flickr);
 	const [index, setIndex] = useState(0);
 	const pop = useRef(null);
 

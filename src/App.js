@@ -53,6 +53,8 @@ function App() {
 	};
 
 	useEffect(() => {
+		//App에서 옵션객체를 전달에서 초기 flickr데이터 store에 저장
+		dispatch({ type: 'FLICKR_START', opt: { type: 'interest', count: 100 } });
 		fetchYoutube();
 		fetchMembers();
 		fetchGallery();
