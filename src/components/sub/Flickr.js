@@ -11,7 +11,11 @@ function Flickr() {
 	const frame = useRef(null);
 	const input = useRef(null);
 	const pop = useRef(null);
-	const [opt, setOpt] = useState({ type: 'interest', count: 100 });
+	const [opt, setOpt] = useState({
+		type: 'user',
+		count: 100,
+		user: '164021883@N04',
+	});
 	const [loading, setLoading] = useState(true);
 	const [index, setIndex] = useState(0);
 	const [enableClick, setEnableClick] = useState(true);
