@@ -26,11 +26,6 @@ function Header(props) {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink activeStyle={active} to='/gallery'>
-							Gallery
-						</NavLink>
-					</li>
-					<li>
 						<NavLink activeStyle={active} to='/flickr'>
 							Flickr
 						</NavLink>

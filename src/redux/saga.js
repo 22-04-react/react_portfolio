@@ -1,5 +1,5 @@
 import { takeLatest, all, put, fork, call } from 'redux-saga/effects';
-import { fetchFlickr, fetchYoutube } from './api';
+import { fetchFlickr, fetchYoutube, fetchMembers } from './api';
 
 //flickr관련 action생성함수
 export function* returnFlickr(action) {
@@ -27,6 +27,20 @@ export function* callYoutube() {
 	yield takeLatest('YOUTUBE_START', returnYoutube);
 }
 
+//members관련 action생성함수
+export function* returnMember(action) {
+	try {
+		const response = yield call(fetchMembers);
+		yield put({ type: 'MEMBER_SUCCESS', payload: response.data.members });
+	} catch (err) {
+		yield put({ type: 'MEMBER_ERROR', payload: err });
+	}
+}
+export function* callMember() {
+	yield takeLatest('MEMBER_START', returnMember);
+}
+
+//모든 액션 생성함수 호출해서 reducer에 전달
 export default function* rootSaga() {
-	yield all([fork(callFlickr), fork(callYoutube)]);
+	yield all([fork(callFlickr), fork(callYoutube), fork(callMember)]);
 }

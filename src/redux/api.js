@@ -1,4 +1,5 @@
 import axios from 'axios';
+const path = process.env.PUBLIC_URL;
 
 export const fetchFlickr = async (opt) => {
 	const key = '4612601b324a2fe5a1f5f7402bf8d87a';
@@ -26,5 +27,10 @@ export const fetchYoutube = async () => {
 	const num = 5;
 	const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${key}&playlistId=${playlistId}&maxResults=${num}`;
 
+	return await axios.get(url);
+};
+
+export const fetchMembers = async () => {
+	const url = path + '/DB/member.json';
 	return await axios.get(url);
 };
