@@ -2,11 +2,13 @@ import { takeLatest, all, put, fork, call } from 'redux-saga/effects';
 import { fetchFlickr } from './api';
 
 export function* returnFlickr(action) {
-	const response = yield call(fetchFlickr, action.opt);
-	if (response) {
+	try {
+		const response = yield call(fetchFlickr, action.opt);
 		yield put({ type: 'FLICKR_SUCCESS', payload: response.data.photos.photo });
-	} else {
-		yield put({ type: 'FLICKR_ERROR', payload: '데이터호출에 실패했습니다.' });
+	} catch (err) {
+		//해당 api호출이 실패했을때 예외처리
+		//에러 내용을 reducer에 전달
+		yield put({ type: 'FLICKR_ERROR', payload: err });
 	}
 }
 
