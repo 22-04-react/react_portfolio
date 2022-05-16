@@ -6,7 +6,7 @@ import Masonry from 'react-masonry-component';
 
 function Flickr() {
 	const { flickr } = useSelector((store) => store.flickrReducer);
-	const dispatch = dispatch();
+	const dispatch = useDispatch();
 	const path = process.env.PUBLIC_URL;
 	const frame = useRef(null);
 	const input = useRef(null);
