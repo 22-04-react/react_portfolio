@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const fetchFlickr = async (opt) => {
-	console.log(opt);
 	const key = '4612601b324a2fe5a1f5f7402bf8d87a';
 	const num = opt.count;
 	const method_interest = 'flickr.interestingness.getList';

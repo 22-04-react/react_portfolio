@@ -11,14 +11,12 @@ function Flickr() {
 	const frame = useRef(null);
 	const input = useRef(null);
 	const pop = useRef(null);
-	//saga로 전달해서 api에 있는 axios함수에 인수로 전달한 객체가 담길 state생성
 	const [opt, setOpt] = useState({ type: 'interest', count: 100 });
 	const [loading, setLoading] = useState(true);
 	const [index, setIndex] = useState(0);
 	const [enableClick, setEnableClick] = useState(true);
 	const masonryOptions = { transitionDuration: '0.5s' };
 
-	//데이터 호출후 로딩 처리할 함수 따로 분리
 	const endLoading = () => {
 		setTimeout(() => {
 			frame.current.classList.add('on');
@@ -42,26 +40,24 @@ function Flickr() {
 			setLoading(true);
 			frame.current.classList.remove('on');
 
-			//검색요청 함수 호출시
-			//axios에 전달이 되야 되는 옵션객체를 setOpt로 스테이트 변경
-			//해당 스테이트가 변경될때마다 useEffect로 saga.js에 전달됨
 			setOpt({
 				type: 'search',
 				count: 100,
 				tag: result,
 			});
-
-			endLoading();
 		}
 	};
 
 	useEffect(() => {
-		//의존성 배열을 opt로 해서 추후 setOpt를 통해서 axios로 전달되야 되는 옵션객체값이 변경될때마다
-		//액션객체로 변환되서 dispatch로 saga.js로 전달
 		dispatch({ type: 'FLICKR_START', opt });
-		//데이터 전달후 로딩처리하는 함수 호출
-		endLoading();
 	}, [opt]);
+
+	useEffect(() => {
+		//기존의 endLoading함수를 api요청을 할때 실행하는게 아닌
+		//store를 통해 데이터호출이 완료될때마다 실행
+		//이때 처음 flickr값은 빈 배열이 들어오니 그때만 조건문으로 실행되지 않도록 처리
+		if (flickr.length !== 0) endLoading();
+	}, [flickr]);
 
 	return (
 		<>
@@ -80,7 +76,6 @@ function Flickr() {
 								type: 'interest',
 								count: 100,
 							});
-							endLoading();
 						}
 					}}>
 					interest gallery
@@ -132,16 +127,11 @@ function Flickr() {
 														setLoading(true);
 														frame.current.classList.remove('on');
 
-														//유저 아이디 클릭시
-														//axios에 전달이 되야 되는 옵션객체를 setOpt로 스테이트 변경
-														//해당 스테이트가 변경될때마다 useEffect로 saga.js에 전달됨
 														setOpt({
 															type: 'user',
 															count: 100,
 															user: e.currentTarget.innerText,
 														});
-
-														endLoading();
 													}
 												}}>
 												{item.owner}
