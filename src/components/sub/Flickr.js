@@ -76,10 +76,11 @@ function Flickr() {
 							setLoading(true);
 							frame.current.classList.remove('on');
 
-							getFlickr({
+							setOpt({
 								type: 'interest',
 								count: 100,
 							});
+							endLoading();
 						}
 					}}>
 					interest gallery
@@ -109,14 +110,14 @@ function Flickr() {
 												pop.current.open();
 											}}>
 											<img
-												src={`https://live.staticflickr.com/${flickr.server}/${flickr.id}_${flickr.secret}_m.jpg`}
+												src={`https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg`}
 											/>
 										</div>
-										<h2>{itflickrem.title}</h2>
+										<h2>{item.title}</h2>
 
 										<div className='profile'>
 											<img
-												src={`http://farm${flickr.farm}.staticflickr.com/${flickr.server}/buddyicons/${flickr.owner}.jpg`}
+												src={`http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg`}
 												onError={(e) => {
 													e.target.setAttribute(
 														'src',
@@ -143,7 +144,7 @@ function Flickr() {
 														endLoading();
 													}
 												}}>
-												{flickr.owner}
+												{item.owner}
 											</span>
 										</div>
 									</div>
