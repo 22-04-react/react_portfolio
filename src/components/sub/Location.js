@@ -103,7 +103,7 @@ function Locaition() {
 	}, [traffic]);
 
 	return (
-		<Layout name={'Location'}>
+		<Layout name={'Location'} img={'pic5.jpg'}>
 			<div id='map' ref={container}></div>
 
 			<button onClick={() => setTraffic(!traffic)}>

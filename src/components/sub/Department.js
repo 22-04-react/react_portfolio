@@ -11,7 +11,7 @@ function Department() {
 
 	return (
 		<>
-			<Layout name={'Department'}>
+			<Layout name={'Department'} img={'pic2.jpg'}>
 				<ul className='memberList'>
 					{members.map((member, idx) => {
 						return (

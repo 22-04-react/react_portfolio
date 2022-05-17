@@ -63,7 +63,7 @@ function Flickr() {
 
 	return (
 		<>
-			<Layout name={'Flickr'}>
+			<Layout name={'Flickr'} img={'pic3.jpg'}>
 				{loading ? (
 					<img className='loading' src={path + '/img/loading.gif'} />
 				) : null}

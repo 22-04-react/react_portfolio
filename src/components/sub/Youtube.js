@@ -10,7 +10,7 @@ function Youtube() {
 
 	return (
 		<>
-			<Layout name={'Youtube'}>
+			<Layout name={'Youtube'} img={'pic6.jpg'}>
 				{vidData.map((vid, idx) => {
 					const tit = vid.snippet.title;
 					const desc = vid.snippet.description;
