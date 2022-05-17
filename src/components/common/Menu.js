@@ -25,6 +25,7 @@ const Menu = forwardRef((props, ref) => {
 					exit={{ x: -280, opacity: 0 }}
 					onClick={() => {
 						setOpen(false);
+						props.setToggle(!props.toggle);
 					}}>
 					<h1>
 						<NavLink exact to='/'>

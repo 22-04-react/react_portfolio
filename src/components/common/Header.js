@@ -56,13 +56,13 @@ function Header(props) {
 						</li>
 					</ul>
 
-					<a href='#' className='menuMo'>
+					<a className='menuMo'>
 						<FontAwesomeIcon icon={faBars} onClick={() => setToggle(!toggle)} />
 					</a>
 				</div>
 			</header>
 
-			<Menu ref={menu} />
+			<Menu ref={menu} toggle={toggle} setToggle={setToggle} />
 		</>
 	);
 }
