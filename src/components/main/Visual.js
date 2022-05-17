@@ -3,6 +3,7 @@ import { Pagination, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+const path = process.env.PUBLIC_URL;
 
 function Visual() {
 	return (
@@ -18,11 +19,25 @@ function Visual() {
 				}}
 				navigation={true}
 				modules={[Pagination, Navigation]}>
-				<SwiperSlide>1</SwiperSlide>
-				<SwiperSlide>2</SwiperSlide>
-				<SwiperSlide>3</SwiperSlide>
-				<SwiperSlide>4</SwiperSlide>
-				<SwiperSlide>5</SwiperSlide>
+				<SwiperSlide>
+					<video src={`${path}/img/vid1.mp4`} loop autoPlay muted></video>
+				</SwiperSlide>
+
+				<SwiperSlide>
+					<video src={`${path}/img/vid2.mp4`} loop autoPlay muted></video>
+				</SwiperSlide>
+
+				<SwiperSlide>
+					<video src={`${path}/img/vid3.mp4`} loop autoPlay muted></video>
+				</SwiperSlide>
+
+				<SwiperSlide>
+					<video src={`${path}/img/vid4.mp4`} loop autoPlay muted></video>
+				</SwiperSlide>
+
+				<SwiperSlide>
+					<video src={`${path}/img/vid5.mp4`} loop autoPlay muted></video>
+				</SwiperSlide>
 			</Swiper>
 		</figure>
 	);
