@@ -22,7 +22,10 @@ const Menu = forwardRef((props, ref) => {
 						opacity: 1,
 						transition: { type: 'spring', bounce: 0 },
 					}}
-					exit={{ x: -280, opacity: 0 }}>
+					exit={{ x: -280, opacity: 0 }}
+					onClick={() => {
+						setOpen(false);
+					}}>
 					<h1>
 						<NavLink exact to='/'>
 							LOGO
