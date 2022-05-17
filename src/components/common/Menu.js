@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Menu = forwardRef((props, ref) => {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	useImperativeHandle(ref, () => {
 		return {
@@ -15,7 +15,14 @@ const Menu = forwardRef((props, ref) => {
 	return (
 		<AnimatePresence>
 			{open && (
-				<nav>
+				<motion.nav
+					initial={{ x: -280, opacity: 0 }}
+					animate={{
+						x: 0,
+						opacity: 1,
+						transition: { type: 'spring', bounce: 0 },
+					}}
+					exit={{ x: -280, opacity: 0 }}>
 					<h1>
 						<NavLink exact to='/'>
 							LOGO
@@ -42,7 +49,7 @@ const Menu = forwardRef((props, ref) => {
 							<NavLink to='/join'>Join</NavLink>
 						</li>
 					</ul>
-				</nav>
+				</motion.nav>
 			)}
 		</AnimatePresence>
 	);
