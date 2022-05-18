@@ -7,20 +7,33 @@ import 'swiper/css/navigation';
 const path = process.env.PUBLIC_URL;
 
 function Visual() {
+	const frame = useRef(null);
 	const cursor = useRef(null);
+	let isCursor = false;
 
 	const mouseMove = (e) => {
-		cursor.current.style.left = e.clientX + 'px';
-		cursor.current.style.top = e.clientY + 'px';
+		if (isCursor) {
+			console.log('move');
+			cursor.current.style.left = e.clientX + 'px';
+			cursor.current.style.top = e.clientY + 'px';
+		}
 	};
 
 	useEffect(() => {
+		frame.current.addEventListener('mouseenter', () => {
+			isCursor = true;
+			cursor.current.style.display = 'block';
+		});
+		frame.current.addEventListener('mouseleave', () => {
+			isCursor = false;
+			cursor.current.style.display = 'none';
+		});
 		window.addEventListener('mousemove', mouseMove);
 		return () => window.removeEventListener('mousemove', mouseMove);
 	}, []);
 
 	return (
-		<figure className='myScroll on'>
+		<figure className='myScroll on' ref={frame}>
 			<Swiper
 				spaceBetween={50}
 				centeredSlides={true}
@@ -32,7 +45,7 @@ function Visual() {
 				}}
 				navigation={true}
 				modules={[Pagination, Navigation]}>
-				{[0, 1, 2, 3, 4].map((num) => {
+				{[1, 2, 3, 4, 5].map((num) => {
 					return (
 						<SwiperSlide
 							key={num}
@@ -43,7 +56,7 @@ function Visual() {
 								cursor.current.style = 'transform: scale(1)';
 							}}>
 							<video
-								src={`${path}/img/vid${num + 1}.mp4`}
+								src={`${path}/img/vid${num}.mp4`}
 								loop
 								autoPlay
 								muted></video>
