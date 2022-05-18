@@ -34,6 +34,7 @@ figure {
 
 		.swiper-pagination {
 			bottom: -60px;
+			z-index: 11;
 
 			.swiper-pagination-bullet {
 				transition: 0.5s;
@@ -54,9 +55,9 @@ figure {
 		height: 20px;
 		background: #fff;
 		position: fixed;
+		top: -1000px;
+		left: -1000px;
 		border-radius: 50%;
-		top: 0px;
-		left: 0px;
 		z-index: 5;
 		mix-blend-mode: difference;
 		transform: translate(-50%, -50%);

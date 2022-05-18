@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -9,13 +9,22 @@ const path = process.env.PUBLIC_URL;
 function Visual() {
 	const frame = useRef(null);
 	const cursor = useRef(null);
+	const [num, setNum] = useState(3);
 	let isCursor = false;
 
 	const mouseMove = (e) => {
 		if (isCursor) {
-			console.log('move');
 			cursor.current.style.left = e.clientX + 'px';
 			cursor.current.style.top = e.clientY + 'px';
+		}
+	};
+
+	const handleResize = () => {
+		const wid = window.innerWidth;
+		if (wid < 1179) {
+			setNum(1);
+		} else {
+			setNum(3);
 		}
 	};
 
@@ -29,7 +38,11 @@ function Visual() {
 			cursor.current.style.display = 'none';
 		});
 		window.addEventListener('mousemove', mouseMove);
-		return () => window.removeEventListener('mousemove', mouseMove);
+		window.addEventListener('resize', handleResize);
+		return () => {
+			window.removeEventListener('mousemove', mouseMove);
+			window.removeEventListener('resize', handleResize);
+		};
 	}, []);
 
 	return (
@@ -39,7 +52,7 @@ function Visual() {
 				centeredSlides={true}
 				grabCursor={true}
 				loop={true}
-				slidesPerView={3}
+				slidesPerView={num}
 				pagination={{
 					clickable: true,
 				}}
