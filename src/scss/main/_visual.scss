@@ -47,4 +47,18 @@ figure {
 			}
 		}
 	}
+
+	.cursor {
+		width: 100px;
+		height: 100px;
+		background: #fff;
+		position: fixed;
+		border-radius: 50%;
+		top: 0px;
+		left: 0px;
+		z-index: 5;
+		mix-blend-mode: difference;
+		transform: translate(-50%, -50%);
+		pointer-events: none;
+	}
 }
