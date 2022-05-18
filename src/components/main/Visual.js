@@ -32,25 +32,24 @@ function Visual() {
 				}}
 				navigation={true}
 				modules={[Pagination, Navigation]}>
-				<SwiperSlide>
-					<video src={`${path}/img/vid1.mp4`} loop autoPlay muted></video>
-				</SwiperSlide>
-
-				<SwiperSlide>
-					<video src={`${path}/img/vid2.mp4`} loop autoPlay muted></video>
-				</SwiperSlide>
-
-				<SwiperSlide>
-					<video src={`${path}/img/vid3.mp4`} loop autoPlay muted></video>
-				</SwiperSlide>
-
-				<SwiperSlide>
-					<video src={`${path}/img/vid4.mp4`} loop autoPlay muted></video>
-				</SwiperSlide>
-
-				<SwiperSlide>
-					<video src={`${path}/img/vid5.mp4`} loop autoPlay muted></video>
-				</SwiperSlide>
+				{[0, 1, 2, 3, 4].map((num) => {
+					return (
+						<SwiperSlide
+							key={num}
+							onMouseEnter={() => {
+								cursor.current.style = 'transform: scale(8)';
+							}}
+							onMouseLeave={() => {
+								cursor.current.style = 'transform: scale(1)';
+							}}>
+							<video
+								src={`${path}/img/vid${num + 1}.mp4`}
+								loop
+								autoPlay
+								muted></video>
+						</SwiperSlide>
+					);
+				})}
 			</Swiper>
 
 			<div className='cursor' ref={cursor}></div>

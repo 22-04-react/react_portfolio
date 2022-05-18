@@ -5,6 +5,7 @@ figure {
 	overflow: hidden;
 	position: relative;
 	padding: 200px 0px 100px;
+	cursor: none;
 
 	.swiper {
 		height: 100%;
@@ -49,8 +50,8 @@ figure {
 	}
 
 	.cursor {
-		width: 100px;
-		height: 100px;
+		width: 20px;
+		height: 20px;
 		background: #fff;
 		position: fixed;
 		border-radius: 50%;
@@ -60,5 +61,6 @@ figure {
 		mix-blend-mode: difference;
 		transform: translate(-50%, -50%);
 		pointer-events: none;
+		transition: transform 0.3s;
 	}
 }
