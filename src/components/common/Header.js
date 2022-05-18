@@ -57,7 +57,15 @@ function Header(props) {
 					</ul>
 
 					<a className='menuMo'>
-						<FontAwesomeIcon icon={faBars} onClick={() => setToggle(!toggle)} />
+						{/* <FontAwesomeIcon icon={faBars} onClick={() => setToggle(!toggle)} /> */}
+						<span onClick={() => setToggle(!toggle)}>
+							<svg width='202' height='154' viewBox='0 0 202 154'>
+								<path
+									d='M51.5 0.5H152C168.833 2.33333 202.2 15.3 201 52.5C199.5 99 192 153 105 152.5C18 152 -0.999973 119.5 1.00003 52.5C2.60003 -1.1 33 6.83333 48 17.5L152 83'
+									stroke='black'
+								/>
+							</svg>
+						</span>
 					</a>
 				</div>
 			</header>

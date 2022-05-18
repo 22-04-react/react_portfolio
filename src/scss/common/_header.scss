@@ -43,6 +43,19 @@ header {
 			font-size: 24px;
 			color: #fff;
 			display: none;
+
+			span {
+				display: block;
+				width: 40px;
+				height: 40px;
+				border: 1px solid red;
+
+				svg {
+					path {
+						fill: transparent;
+					}
+				}
+			}
 		}
 	}
 
