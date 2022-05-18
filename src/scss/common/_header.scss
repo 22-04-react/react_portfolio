@@ -38,8 +38,8 @@ header {
 
 		.menuMo {
 			position: absolute;
-			right: 00px;
-			bottom: 00px;
+			right: 10px;
+			bottom: 0px;
 			font-size: 24px;
 			color: #fff;
 			display: none;
@@ -48,7 +48,6 @@ header {
 				display: block;
 				width: 80px;
 				height: 80px;
-				border: 1px solid red;
 
 				svg {
 					path {
