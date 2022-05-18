@@ -3,15 +3,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Menu from './Menu';
 import { useState, useRef, useEffect } from 'react';
+import SvgLine from '../../class/svg_line';
 
 function Header(props) {
 	const menu = useRef(null);
+	const pathTop = useRef(null);
 	const active = { color: 'aqua' };
 	const [toggle, setToggle] = useState(false);
 
 	useEffect(() => {
 		toggle ? menu.current.open() : menu.current.close();
 	}, [toggle]);
+
+	useEffect(() => {
+		SvgLine.put(pathTop.current, {
+			start: '0%',
+			end: '13%',
+		});
+	}, []);
 
 	return (
 		<>
@@ -58,11 +67,29 @@ function Header(props) {
 
 					<a className='menuMo'>
 						{/* <FontAwesomeIcon icon={faBars} onClick={() => setToggle(!toggle)} /> */}
-						<span onClick={() => setToggle(!toggle)}>
-							<svg width='202' height='154' viewBox='0 0 202 154'>
+						<span
+							onClick={() => {
+								setToggle(!toggle);
+								SvgLine.animate(pathTop.current, {
+									start: '0%',
+									end: '13%',
+									duration: 0.5,
+								});
+								if (toggle) {
+								} else {
+									SvgLine.animate(pathTop.current, {
+										start: '80%',
+										end: '100%',
+										duration: 0.5,
+									});
+								}
+							}}>
+							<svg width='80' height='80' viewBox='0 0 80 80' fill='none'>
 								<path
-									d='M51.5 0.5H152C168.833 2.33333 202.2 15.3 201 52.5C199.5 99 192 153 105 152.5C18 152 -0.999973 119.5 1.00003 52.5C2.60003 -1.1 33 6.83333 48 17.5L152 83'
-									stroke='black'
+									d='M16.5 1H55.5C61 3 72 9.8 72 21C72 35 65.5 56 36 56C6.5 56 0.5 36.5 0.5 21C0.5 8.6 11.1667 5.16667 16.5 5L55.5 37'
+									transform='translate(5 20)'
+									id='pathTop'
+									ref={pathTop}
 								/>
 							</svg>
 						</span>
